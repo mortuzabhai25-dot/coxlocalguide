@@ -59,6 +59,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
 
   body {
     font-family: 'Hind Siliguri', sans-serif;
@@ -73,16 +74,23 @@
     position: fixed; top: 0; width: 100%; z-index: 1000;
     background: rgba(2,62,138,0.97);
     backdrop-filter: blur(12px);
-    padding: 0 24px;
+    padding: 0 20px;
     display: flex; align-items: center; justify-content: space-between;
     height: 60px;
     box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    gap: 12px;
   }
   .nav-brand {
     font-family: 'Tiro Bangla', serif;
     color: white; font-size: 1.3rem; font-weight: 700;
     display: flex; align-items: center; gap: 8px;
     text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nav-actions {
+    display: flex; align-items: center; gap: 8px;
+    flex-shrink: 0;
   }
   .nav-links { display: flex; gap: 6px; list-style: none; }
   .nav-links a {
@@ -96,8 +104,12 @@
     padding: 8px 16px; border-radius: 20px; font-family: 'Hind Siliguri', sans-serif;
     font-size: 0.82rem; font-weight: 600; cursor: pointer;
     transition: all 0.2s;
+    white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 6px;
   }
   .nav-budget-btn:hover { background: var(--coral-dark); transform: scale(1.04); }
+  .nav-budget-btn .btn-icon { display: none; }
+  .nav-budget-btn .btn-text { display: inline; }
 
   /* ── HERO ── */
   .hero {
@@ -116,6 +128,7 @@
       radial-gradient(ellipse at 80% 70%, rgba(244,162,97,0.20) 0%, transparent 50%),
       radial-gradient(ellipse at 50% 100%, rgba(42,157,143,0.25) 0%, transparent 60%);
     opacity: 0.9;
+    pointer-events: none;
   }
   .hero::after {
     content: '';
@@ -128,8 +141,10 @@
   .hero-waves {
     position: absolute; bottom: 0; left: 0; width: 100%;
     height: 80px; overflow: hidden;
+    pointer-events: none;
   }
-  .hero-waves svg { width: 100%; height: 100%; }
+  .hero-waves svg { width: 100%; height: 100%; display: block; }
+  .hero-badge, .hero h1, .hero p, .hero-cta, .hero-stats { position: relative; z-index: 2; }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
     background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
@@ -149,21 +164,26 @@
     max-width: 580px; margin-bottom: 36px;
   }
   .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .btn-primary, .btn-outline { cursor: pointer; -webkit-tap-highlight-color: transparent; user-select: none; }
   .btn-primary {
     background: var(--coral); color: white;
     padding: 14px 28px; border-radius: 30px;
     text-decoration: none; font-weight: 700; font-size: 1rem;
     transition: all 0.25s; box-shadow: 0 4px 18px rgba(231,111,81,0.45);
+    display: inline-flex; align-items: center; gap: 8px;
   }
-  .btn-primary:hover { background: var(--coral-dark); transform: translateY(-2px); }
+  .btn-primary:hover { background: var(--coral-dark); transform: translateY(-2px); box-shadow: 0 6px 22px rgba(231,111,81,0.55); }
+  .btn-primary:active { transform: translateY(0); }
   .btn-outline {
     background: rgba(255,255,255,0.12); color: white;
     border: 2px solid rgba(255,255,255,0.5);
     padding: 13px 26px; border-radius: 30px;
     text-decoration: none; font-weight: 600; font-size: 1rem;
     transition: all 0.25s; backdrop-filter: blur(8px);
+    display: inline-flex; align-items: center; gap: 8px;
   }
-  .btn-outline:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+  .btn-outline:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); border-color: rgba(255,255,255,0.8); }
+  .btn-outline:active { transform: translateY(0); }
   .hero-stats {
     display: flex; gap: 40px; margin-top: 50px;
     flex-wrap: wrap; justify-content: center;
@@ -482,12 +502,45 @@
 /* ===== ADDED ANIMATIONS & FEATURES ===== */
 .reveal{opacity:0;transform:translateY(40px);transition:.6s}
 .reveal.active{opacity:1;transform:translateY(0)}
-.menu-toggle{display:none;font-size:1.6rem;color:#fff;cursor:pointer}
-@media(max-width:768px){
-.menu-toggle{display:block}
-.nav-links{position:absolute;top:60px;right:0;background:#023e8a;flex-direction:column;width:200px;display:none;padding:10px}
-.nav-links.show{display:flex}
+.menu-toggle{
+  display:none;
+  font-size:1.5rem;
+  color:#fff;
+  cursor:pointer;
+  padding:6px 8px;
+  border-radius:8px;
+  transition: background 0.2s;
+  line-height:1;
 }
+.menu-toggle:hover{background:rgba(255,255,255,0.15);}
+@media(max-width:768px){
+  nav { padding: 0 14px; gap: 8px; }
+  .nav-brand { font-size: 1.05rem; gap: 6px; }
+  .menu-toggle{display:block; order: 99;}
+  .nav-links{
+    position:absolute;
+    top:60px; right:8px;
+    background:#023e8a;
+    flex-direction:column;
+    width:220px;
+    display:none;
+    padding:12px;
+    border-radius:10px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.35);
+    border:1px solid rgba(255,255,255,0.1);
+  }
+  .nav-links.show{display:flex}
+  .nav-actions { gap: 6px; }
+  .nav-budget-btn { padding: 7px 11px; font-size: 0.78rem; }
+  .nav-budget-btn .btn-icon { display: inline; font-size: 0.95rem; }
+  .nav-budget-btn .btn-text { display: none; }
+}
+@media(max-width:380px){
+  .nav-brand { font-size: 0.95rem; }
+  .nav-brand .brand-text { display:none; }
+  .nav-brand .brand-short { display:inline; }
+}
+.nav-brand .brand-short { display: none; }
 .filter-bar{margin-bottom:20px}
 .filter-btn{padding:8px 14px;border:none;border-radius:20px;margin-right:8px;cursor:pointer}
 .filter-btn.active{background:#0077b6;color:#fff}
@@ -752,8 +805,11 @@
 
 <!-- NAVBAR -->
 <nav>
-  <a class="nav-brand" href="#">🌊 Cox Local Guide</a>
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <a class="nav-brand" href="#">
+    🌊
+    <span class="brand-text">Cox Local Guide</span>
+    <span class="brand-short">Cox Guide</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#features" data-i18n="nav_feature">ফিচার</a></li>
     <li><a href="#prices" data-i18n="nav_prices">ভাড়া</a></li>
@@ -766,9 +822,12 @@
     <li><a href="#emergency" data-i18n="nav_emergency">জরুরি</a></li>
     <li><a href="#map-section" data-i18n="nav_map">🗺️ ম্যাপ</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:6px">
+  <div class="nav-actions">
     <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
-    <button class="nav-budget-btn" onclick="document.getElementById('budget').scrollIntoView({behavior:'smooth'})" data-i18n="nav_budget">বাজেট হিসাব</button>
+    <button class="nav-budget-btn" onclick="document.getElementById('budget').scrollIntoView({behavior:'smooth'})" data-i18n="nav_budget" aria-label="বাজেট হিসাব">
+      <span class="btn-icon">💰</span><span class="btn-text">বাজেট হিসাব</span>
+    </button>
+    <div class="menu-toggle" onclick="toggleMenu()" aria-label="Menu">☰</div>
   </div>
 </nav>
 
@@ -1787,6 +1846,20 @@ entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('active')}})
 },{threshold:0.1});
 reveals.forEach(el=>{el.classList.add('reveal');observer.observe(el);});
 function toggleMenu(){document.querySelector('.nav-links').classList.toggle('show')}
+// Close mobile menu when a nav link is clicked
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.remove('show');
+  });
+});
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+  const nav = document.querySelector('nav');
+  const links = document.querySelector('.nav-links');
+  if(nav && links && !nav.contains(e.target) && links.classList.contains('show')){
+    links.classList.remove('show');
+  }
+});
 function filterHotels(type,btn){
 document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
 btn.classList.add('active');
