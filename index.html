@@ -2,16 +2,123 @@
 <html lang="bn">
 <head>
 
-<meta name="description" content="Complete Cox's Bazar travel guide with hotels, routes, budget calculator, weather, and maps.">
-<meta name="keywords" content="Cox Bazar hotel, Bangladesh travel, sea beach hotel, Cox travel guide">
-<meta name="author" content="Cox Guide">
-<meta property="og:title" content="Cox Local Guide">
-<meta property="og:description" content="Explore Cox's Bazar with smart tools and hotel listings">
-<meta property="og:type" content="website">
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ঠকবেন না, সঠিক দামে ঘুরুন | Cox Local Guide</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>ঠকবেন না, সঠিক দামে ঘুরুন | Cox Local Guide - কক্সবাজার ভ্রমণ গাইড</title>
+
+<!-- ===== Primary SEO Meta Tags ===== -->
+<meta name="description" content="কক্সবাজার ভ্রমণের সম্পূর্ণ লোকাল গাইড — হোটেল ভাড়া (৬০+), যাতায়াত খরচ, রুট ক্যালকুলেটর, বাজেট হিসাব, সিজন বুঝে দাম, এবং স্থানীয়দের পরামর্শ। ঠকবেন না, সঠিক দামে ঘুরুন।">
+<meta name="keywords" content="কক্সবাজার হোটেল, Cox Bazar hotel, কক্সবাজার ভ্রমণ গাইড, Cox Bazar travel guide, কক্সবাজার ভাড়া, কক্সবাজার বাজেট, সমুদ্র সৈকত হোটেল, sea beach hotel, ইনানী, হিমছড়ি, লাবণী, কলাতলী, কক্সবাজার সিএনজি ভাড়া, Bangladesh travel">
+<meta name="author" content="Mortuza - Cox Local Guide">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<meta name="language" content="Bengali">
+<meta name="geo.region" content="BD-04">
+<meta name="geo.placename" content="Cox's Bazar, Bangladesh">
+<meta name="geo.position" content="21.4272;92.0058">
+<meta name="ICBM" content="21.4272, 92.0058">
+
+<!-- ===== Canonical URL ===== -->
+<link rel="canonical" href="https://coxlocal-guide.netlify.app/">
+
+<!-- ===== Open Graph (Facebook, WhatsApp, LinkedIn) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cox Local Guide">
+<meta property="og:locale" content="bn_BD">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:url" content="https://coxlocal-guide.netlify.app/">
+<meta property="og:title" content="ঠকবেন না, সঠিক দামে ঘুরুন | Cox Local Guide">
+<meta property="og:description" content="কক্সবাজারের একমাত্র লোকাল গাইড। হোটেল ভাড়া, যাতায়াত খরচ, রুট গাইড — সব এক জায়গায়। স্থানীয়দের তৈরি, ট্যুরিস্ট দের জন্য।">
+<meta property="og:image" content="https://coxlocal-guide.netlify.app/og-image.svg">
+<meta property="og:image:alt" content="Cox Local Guide - Cox's Bazar Travel Guide">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/svg+xml">
+
+<!-- ===== Twitter Card ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ঠকবেন না, সঠিক দামে ঘুরুন | Cox Local Guide">
+<meta name="twitter:description" content="কক্সবাজারের একমাত্র লোকাল গাইড। হোটেল ভাড়া, যাতায়াত খরচ, রুট গাইড — সব এক জায়গায়।">
+<meta name="twitter:image" content="https://coxlocal-guide.netlify.app/og-image.svg">
+
+<!-- ===== Theme Color (Mobile browsers) ===== -->
+<meta name="theme-color" content="#023e8a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Cox Guide">
+
+<!-- ===== Favicon ===== -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23023e8a'/><text x='50' y='62' font-size='52' text-anchor='middle' dominant-baseline='middle'>🌊</text></svg>">
+
+<!-- ===== Resource Hints (Performance) ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://firestore.googleapis.com">
+<link rel="dns-prefetch" href="https://unpkg.com">
+<link rel="dns-prefetch" href="https://api.openweathermap.org">
+
+<!-- ===== Structured Data: WebSite + LocalBusiness + TouristAttraction ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://coxlocal-guide.netlify.app/#website",
+      "url": "https://coxlocal-guide.netlify.app/",
+      "name": "Cox Local Guide",
+      "description": "কক্সবাজার ভ্রমণের সম্পূর্ণ লোকাল গাইড",
+      "inLanguage": ["bn-BD", "en-US"],
+      "publisher": { "@id": "https://coxlocal-guide.netlify.app/#organization" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://coxlocal-guide.netlify.app/#organization",
+      "name": "Cox Local Guide",
+      "url": "https://coxlocal-guide.netlify.app/",
+      "email": "mortuzabhai25@gmail.com",
+      "logo": "https://coxlocal-guide.netlify.app/og-image.svg",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Cox's Bazar, Bangladesh"
+      }
+    },
+    {
+      "@type": "TouristAttraction",
+      "@id": "https://coxlocal-guide.netlify.app/#attraction",
+      "name": "কক্সবাজার সমুদ্র সৈকত",
+      "alternateName": "Cox's Bazar Beach",
+      "description": "বিশ্বের দীর্ঘতম প্রাকৃতিক সমুদ্র সৈকত — ১২০ কিলোমিটার দীর্ঘ। বাংলাদেশের সবচেয়ে জনপ্রিয় পর্যটন কেন্দ্র।",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cox's Bazar",
+        "addressRegion": "Chattogram",
+        "addressCountry": "BD"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 21.4272,
+        "longitude": 92.0058
+      },
+      "touristType": ["Beach lovers", "Budget travelers", "Family vacation"],
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "TravelAgency",
+      "@id": "https://coxlocal-guide.netlify.app/#agency",
+      "name": "Cox Local Guide",
+      "description": "কক্সবাজার ভ্রমণের জন্য hotel listing, budget calculator, route guide, এবং local price information প্রদানকারী platform।",
+      "url": "https://coxlocal-guide.netlify.app/",
+      "areaServed": "Cox's Bazar, Bangladesh",
+      "priceRange": "৳1500 - ৳90000"
+    }
+  ]
+}
+</script>
 
 <!-- Firebase SDK (compat version for non-module usage) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -34,9 +141,12 @@
   // Enable offline persistence (so site works even if briefly offline)
   window.fbDb.enablePersistence({synchronizeTabs:true}).catch(()=>{});
 </script>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&display=swap');
+<!-- Google Fonts (non-blocking) -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&display=swap"></noscript>
 
+<style>
   :root {
     --ocean: #0077b6;
     --ocean-dark: #023e8a;
@@ -568,8 +678,7 @@
 
 </style>
 
-  <!-- Leaflet Map -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <!-- Leaflet Map (CSS loaded lazily when map section is in view) -->
   <style>
     /* ── MAP SECTION ── */
     #map-section { background: var(--white); }
@@ -1911,7 +2020,31 @@ function openMap(){
 <!-- Hotel data managed via Admin Panel -->
 
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// Lazy-load Leaflet CSS + JS only when needed (saves ~150KB on initial load)
+let _leafletPromise = null;
+function loadLeaflet(){
+  if(_leafletPromise) return _leafletPromise;
+  _leafletPromise = new Promise((resolve, reject) => {
+    // Inject CSS
+    if(!document.querySelector('link[href*="leaflet"]')){
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      document.head.appendChild(link);
+    }
+    // Inject JS
+    if(typeof L !== 'undefined'){ resolve(L); return; }
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.onload = () => resolve(window.L);
+    script.onerror = () => reject(new Error('Leaflet failed to load'));
+    document.head.appendChild(script);
+  });
+  return _leafletPromise;
+}
+</script>
+
 <script>
 // ===================== PLACES & RESTAURANTS DATA =====================
 const DEFAULT_PLACES = [
@@ -2046,8 +2179,19 @@ function makeRestPopup(r){
   </div>`;
 }
 
-function initMap(){
+async function initMap(){
   if(map) return;  // already initialized
+  const mapEl = document.getElementById('hotelMap');
+  if(mapEl){
+    mapEl.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-family:Hind Siliguri,sans-serif">⏳ ম্যাপ লোড হচ্ছে...</div>';
+  }
+  try {
+    await loadLeaflet();
+  } catch(e){
+    if(mapEl) mapEl.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--coral-dark);font-family:Hind Siliguri,sans-serif">❌ ম্যাপ লোড করা যায়নি। Internet check করুন।</div>';
+    return;
+  }
+  if(mapEl) mapEl.innerHTML = '';
   map = L.map('hotelMap').setView([21.4275, 92.0058], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap',

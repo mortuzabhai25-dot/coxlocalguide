@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Sky to ocean gradient -->
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#023e8a"/>
+      <stop offset="50%" stop-color="#0077b6"/>
+      <stop offset="100%" stop-color="#00b4d8"/>
+    </linearGradient>
+    <!-- Sun -->
+    <radialGradient id="sun" cx="0.5" cy="0.5">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#f4a261" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#f4a261" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Sand gradient -->
+    <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f9f3e8"/>
+      <stop offset="100%" stop-color="#e9dfc8"/>
+    </linearGradient>
+    <!-- Foam glow -->
+    <linearGradient id="foam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Text shadow filter -->
+    <filter id="textShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="0" dy="3" result="offsetBlur"/>
+      <feFlood flood-color="#000" flood-opacity="0.5"/>
+      <feComposite in2="offsetBlur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Decorative dots pattern -->
+    <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="1.5" fill="white" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- Background sky/ocean -->
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+
+  <!-- Sun -->
+  <circle cx="950" cy="180" r="280" fill="url(#sun)"/>
+  <circle cx="950" cy="180" r="80" fill="#fff7e6" opacity="0.95"/>
+
+  <!-- Distant waves (decorative) -->
+  <path d="M 0 420 Q 200 400 400 420 T 800 420 T 1200 420 L 1200 440 L 0 440 Z" fill="#fff" opacity="0.08"/>
+  <path d="M 0 460 Q 300 440 600 460 T 1200 460 L 1200 480 L 0 480 Z" fill="#fff" opacity="0.06"/>
+
+  <!-- Sand/Beach at bottom -->
+  <path d="M 0 530 Q 200 510 600 525 T 1200 530 L 1200 630 L 0 630 Z" fill="url(#sand)"/>
+  
+  <!-- Foam line where ocean meets sand -->
+  <path d="M 0 530 Q 200 510 600 525 T 1200 530 L 1200 550 Q 800 545 600 545 T 0 550 Z" fill="url(#foam)"/>
+
+  <!-- Coconut tree silhouette (decorative, left side) -->
+  <g transform="translate(80, 380)" opacity="0.7">
+    <path d="M 20 150 Q 22 80 18 30" stroke="#1a3a2e" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M 20 30 Q -20 5 -40 25 Q -15 15 20 30 Z" fill="#1a3a2e"/>
+    <path d="M 20 30 Q 60 5 80 25 Q 45 15 20 30 Z" fill="#1a3a2e"/>
+    <path d="M 20 30 Q -10 -25 -25 -10 Q 0 -5 20 30 Z" fill="#1a3a2e"/>
+    <path d="M 20 30 Q 50 -25 65 -10 Q 40 -5 20 30 Z" fill="#1a3a2e"/>
+    <path d="M 20 30 Q 25 -35 30 -25 Q 22 -10 20 30 Z" fill="#1a3a2e"/>
+  </g>
+
+  <!-- Top-left branding badge -->
+  <g transform="translate(60, 70)">
+    <rect width="280" height="48" rx="24" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+    <text x="22" y="32" font-family="system-ui, sans-serif" font-size="22" fill="#fff">🌊</text>
+    <text x="58" y="32" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#fff" letter-spacing="0.5">Cox Local Guide</text>
+  </g>
+
+  <!-- Main title (Bengali) -->
+  <g filter="url(#textShadow)">
+    <text x="60" y="280" font-family="'Tiro Bangla', 'Hind Siliguri', Georgia, serif" font-size="84" font-weight="700" fill="#fff">
+      ঠকবেন না,
+    </text>
+    <text x="60" y="370" font-family="'Tiro Bangla', 'Hind Siliguri', Georgia, serif" font-size="84" font-weight="700" fill="#f4a261">
+      সঠিক দামে ঘুরুন
+    </text>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="60" y="440" font-family="'Hind Siliguri', system-ui, sans-serif" font-size="26" fill="rgba(255,255,255,0.92)" font-weight="500">
+    কক্সবাজারের সম্পূর্ণ লোকাল গাইড
+  </text>
+
+  <!-- Feature pills at bottom -->
+  <g font-family="'Hind Siliguri', system-ui, sans-serif" font-size="18" font-weight="600">
+    <g transform="translate(60, 575)">
+      <rect width="160" height="38" rx="19" fill="rgba(255,255,255,0.92)"/>
+      <text x="20" y="25" fill="#023e8a">🏨 ৬০+ হোটেল</text>
+    </g>
+    <g transform="translate(240, 575)">
+      <rect width="170" height="38" rx="19" fill="rgba(255,255,255,0.92)"/>
+      <text x="20" y="25" fill="#023e8a">💰 বাজেট হিসাব</text>
+    </g>
+    <g transform="translate(430, 575)">
+      <rect width="180" height="38" rx="19" fill="rgba(255,255,255,0.92)"/>
+      <text x="20" y="25" fill="#023e8a">🗺️ রুট ক্যালকুলেটর</text>
+    </g>
+    <g transform="translate(630, 575)">
+      <rect width="160" height="38" rx="19" fill="rgba(255,255,255,0.92)"/>
+      <text x="20" y="25" fill="#023e8a">📍 ১৪+ স্থান</text>
+    </g>
+  </g>
+
+  <!-- URL at top right -->
+  <text x="1140" y="98" font-family="system-ui, sans-serif" font-size="18" fill="rgba(255,255,255,0.85)" text-anchor="end" font-weight="500">
+    coxlocal-guide.netlify.app
+  </text>
+</svg>

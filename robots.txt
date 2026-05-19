@@ -1,0 +1,28 @@
+# Cox Local Guide - robots.txt
+# Welcome, search engine crawlers!
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://coxlocal-guide.netlify.app/sitemap.xml
+
+# Crawl delay (be nice to small server)
+Crawl-delay: 1
+
+# Disallow admin/private (hash fragments aren't really crawlable, this is just a hint)
+Disallow: /admin
+Disallow: /*?admin*
+
+# Common bad bots - block
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
