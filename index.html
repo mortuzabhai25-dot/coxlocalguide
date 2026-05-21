@@ -890,6 +890,229 @@
 
   /* ── FOOTER ── */
   footer {
+
+  
+  /* ============================================
+     SIMPLE STAR RATING — compact, footer-area
+     ============================================ */
+  .rating-box {
+    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 480px;
+    margin: 50px auto 30px;
+    text-align: center;
+    box-shadow: 0 12px 36px rgba(245,158,11,0.18);
+    border: 1px solid rgba(245,158,11,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  .rating-box::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(251,191,36,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .rating-box::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; left: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(231,111,81,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .rating-box-title {
+    font-family: Georgia, serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: #78350f;
+    margin-bottom: 6px;
+    position: relative; z-index: 2;
+  }
+  .rating-box-sub {
+    color: #92400e;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+    position: relative; z-index: 2;
+  }
+  .rating-stars {
+    display: flex; justify-content: center; gap: 6px;
+    position: relative; z-index: 2;
+  }
+  .rating-stars .r-star {
+    font-size: 2.6rem;
+    cursor: pointer;
+    color: #d1d5db;
+    line-height: 1;
+    user-select: none;
+    transition: transform 0.15s ease, color 0.15s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  }
+  .rating-stars .r-star:hover {
+    transform: scale(1.18);
+  }
+  .rating-stars .r-star.active {
+    color: #fbbf24;
+    text-shadow: 0 0 8px rgba(251,191,36,0.5);
+  }
+  .rating-stars .r-star.disabled { cursor: default; }
+  .rating-thanks {
+    margin-top: 14px;
+    color: #166534;
+    font-weight: 600;
+    font-size: 0.95rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: relative; z-index: 2;
+  }
+  .rating-thanks.show { opacity: 1; }
+  .rating-count {
+    margin-top: 10px;
+    color: #78350f;
+    font-size: 0.78rem;
+    opacity: 0.7;
+    position: relative; z-index: 2;
+  }
+  @media (max-width: 480px){
+    .rating-box { padding: 22px 18px; margin: 40px 18px 24px; }
+    .rating-box-title { font-size: 1.1rem; }
+    .rating-stars .r-star { font-size: 2.2rem; }
+  }
+  
+  /* ============================================
+     ADMIN DASHBOARD — Chart.js powered
+     ============================================ */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px; margin: 18px 0;
+  }
+  .stat-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 14px;
+    padding: 18px 16px;
+    border-left: 4px solid var(--ocean);
+  }
+  .stat-card.coral { border-left-color: var(--coral); }
+  .stat-card.gold { border-left-color: #f59e0b; }
+  .stat-card.green { border-left-color: #10b981; }
+  .stat-card-label {
+    font-size: 0.78rem; color: var(--muted);
+    margin-bottom: 6px; font-weight: 500;
+  }
+  .stat-card-value {
+    font-size: 1.9rem; font-weight: 700;
+    color: var(--ocean-dark);
+    font-family: 'Tiro Bangla', serif;
+    line-height: 1.1;
+  }
+  .stat-card-sub {
+    font-size: 0.72rem; color: var(--muted);
+    margin-top: 4px;
+  }
+  .chart-section {
+    background: #fff;
+    border-radius: 14px; padding: 18px;
+    margin: 16px 0;
+    border: 1px solid #e5e7eb;
+  }
+  .chart-section h4 {
+    font-size: 0.95rem; color: var(--ocean-dark);
+    margin-bottom: 14px;
+  }
+  .bar-chart {
+    display: flex; align-items: flex-end; gap: 6px;
+    height: 120px; padding: 0 4px;
+  }
+  .bar-chart .bar-col {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+  }
+  .bar-chart .bar {
+    width: 100%; max-width: 40px;
+    background: linear-gradient(180deg, var(--ocean-light) 0%, var(--ocean) 100%);
+    border-radius: 4px 4px 0 0;
+    min-height: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .bar-chart .bar:hover {
+    background: linear-gradient(180deg, var(--coral) 0%, var(--coral-dark) 100%);
+  }
+  .bar-chart .bar-val {
+    position: absolute; top: -20px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem; color: var(--ocean-dark);
+    font-weight: 600;
+  }
+  .bar-chart .bar-label {
+    font-size: 0.7rem; color: var(--muted);
+    text-align: center;
+  }
+  .rating-dist {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .rating-dist-row {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.85rem;
+  }
+  .rating-dist-row .rd-stars { color: #fbbf24; min-width: 60px; }
+  .rating-dist-row .rd-bar-wrap {
+    flex: 1; height: 16px;
+    background: #f3f4f6; border-radius: 8px;
+    overflow: hidden;
+  }
+  .rating-dist-row .rd-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+    border-radius: 8px;
+    transition: width 0.4s ease;
+  }
+  .rating-dist-row .rd-count {
+    min-width: 50px; text-align: right;
+    color: var(--muted); font-size: 0.8rem;
+  }
+  .admin-review-item {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--ocean);
+  }
+  .admin-review-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px;
+  }
+  .admin-review-name {
+    font-weight: 600; color: var(--ocean-dark);
+    font-size: 0.92rem;
+  }
+  .admin-review-meta {
+    display: flex; gap: 10px; align-items: center;
+    font-size: 0.78rem; color: var(--muted);
+  }
+  .admin-review-comment {
+    font-size: 0.85rem; color: var(--text); line-height: 1.5;
+    margin: 6px 0;
+  }
+  .admin-review-delete {
+    background: #fee2e2; border: none;
+    color: #991b1b; padding: 4px 12px;
+    border-radius: 6px; cursor: pointer;
+    font-size: 0.75rem; font-weight: 600;
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+  .admin-review-delete:hover { background: #fecaca; }
+  
+  @media (max-width: 600px){
+    .stat-card-value { font-size: 1.5rem; }
+  }
+  
+  /* Legacy override for footer rule */
+  footer {
     background: var(--ocean-dark); color: rgba(255,255,255,0.8);
     text-align: center; padding: 40px 24px;
     font-size: 0.88rem; line-height: 1.8;
@@ -1378,10 +1601,10 @@
 <input id="hotelSearch" onkeyup="applyHotelFilters()" placeholder="🔍 হোটেল খুঁজুন..." data-i18n-placeholder="search_hotel" style="padding:10px;width:100%;border-radius:10px;border:1px solid #ccc;">
 </div>
 <div class="filter-bar">
-<button class="filter-btn active" onclick="setHotelTypeFilter('all',this)" data-i18n="filter_all">সব</button>
-<button class="filter-btn" onclick="setHotelTypeFilter('budget',this)" data-i18n="filter_budget">বাজেট</button>
-<button class="filter-btn" onclick="setHotelTypeFilter('mid',this)" data-i18n="filter_mid">মিড</button>
-<button class="filter-btn" onclick="setHotelTypeFilter('luxury',this)" data-i18n="filter_luxury">লাক্সারি</button>
+<button class="filter-btn active" onclick="setHotelTypeFilter('all',this)" data-track-filter="all" data-i18n="filter_all">সব</button>
+<button class="filter-btn" onclick="setHotelTypeFilter('budget',this)" data-track-filter="budget" data-i18n="filter_budget">বাজেট</button>
+<button class="filter-btn" onclick="setHotelTypeFilter('mid',this)" data-track-filter="mid" data-i18n="filter_mid">মিড</button>
+<button class="filter-btn" onclick="setHotelTypeFilter('luxury',this)" data-track-filter="luxury" data-i18n="filter_luxury">লাক্সারি</button>
 </div>
 
 <div class="sort-filter-bar">
@@ -1820,7 +2043,8 @@
 
       <!-- Admin Tabs -->
       <div class="admin-tab-bar">
-        <button class="admin-tab-btn active" onclick="showAdminTab('hotels',this)">🏨 হোটেল</button>
+        <button class="admin-tab-btn active" onclick="showAdminTab('dashboard',this)">📊 ড্যাশবোর্ড</button>
+        <button class="admin-tab-btn" onclick="showAdminTab('hotels',this)">🏨 হোটেল</button>
         <button class="admin-tab-btn" onclick="showAdminTab('transport',this)">💵 যাতায়াত</button>
         <button class="admin-tab-btn" onclick="showAdminTab('shopping',this)">🛍️ কেনাকাটা</button>
         <button class="admin-tab-btn" onclick="showAdminTab('seafood',this)">🦐 সীফুড</button>
@@ -1829,8 +2053,15 @@
         <button class="admin-tab-btn" onclick="showAdminTab('festivals',this)">📅 সিজন</button>
       </div>
 
+      <!-- ============ DASHBOARD TAB ============ -->
+      <div id="adminTab-dashboard" class="admin-tab-content active">
+        <div id="dashboardContent">
+          <div style="text-align:center;padding:40px;color:var(--muted)">⏳ ড্যাশবোর্ড লোড হচ্ছে...</div>
+        </div>
+      </div>
+
       <!-- ============ HOTELS TAB ============ -->
-      <div id="adminTab-hotels" class="admin-tab-content active">
+      <div id="adminTab-hotels" class="admin-tab-content">
         <div class="admin-stats" id="adminStats"></div>
 
         <div class="admin-add-form">
@@ -2012,6 +2243,23 @@
     <input type="hidden" id="e_id">
     <input type="hidden" id="e_kind">
   </div>
+</div>
+
+<!-- ============================================
+     SIMPLE STAR RATING (compact box before footer)
+     ============================================ -->
+<div class="rating-box" id="ratingBox">
+  <div class="rating-box-title">Give us a rating</div>
+  <div class="rating-box-sub">Tap a star to rate your experience</div>
+  <div class="rating-stars" id="ratingStars">
+    <span class="r-star" data-value="1">★</span>
+    <span class="r-star" data-value="2">★</span>
+    <span class="r-star" data-value="3">★</span>
+    <span class="r-star" data-value="4">★</span>
+    <span class="r-star" data-value="5">★</span>
+  </div>
+  <div class="rating-thanks" id="ratingThanks">🙏 Thanks for your feedback!</div>
+  <div class="rating-count" id="ratingCount"></div>
 </div>
 
 <!-- FOOTER -->
@@ -2371,6 +2619,21 @@ function loadLeaflet(){
   });
   return _leafletPromise;
 }
+
+// Lazy-load Chart.js — only when admin opens dashboard (saves ~70KB for visitors)
+let _chartPromise = null;
+function loadChartJs(){
+  if(_chartPromise) return _chartPromise;
+  _chartPromise = new Promise((resolve, reject) => {
+    if(typeof Chart !== 'undefined'){ resolve(Chart); return; }
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+    script.onload = () => resolve(window.Chart);
+    script.onerror = () => reject(new Error('Chart.js failed to load'));
+    document.head.appendChild(script);
+  });
+  return _chartPromise;
+}
 </script>
 
 <script>
@@ -2639,6 +2902,10 @@ function showAdminTab(name, btn){
   document.querySelectorAll('.admin-tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('adminTab-'+name).classList.add('active');
   btn.classList.add('active');
+  // Refresh dashboard data when opening
+  if(name === 'dashboard' && typeof renderAdminDashboard === 'function'){
+    renderAdminDashboard();
+  }
 }
 
 // ===== HOTELS =====
@@ -3606,11 +3873,491 @@ document.addEventListener('DOMContentLoaded', function(){
   renderTipsPublic();
   renderFestivalsPublic();
   loadWeather();
+  setupSimpleRating();
+  setupSectionTracking();
   // Run hotel render hook (origRenderHotelCards already ran on DOMContentLoaded)
   setTimeout(() => {
     if(window.renderHotelCards) window.renderHotelCards();
   }, 50);
 });
+
+// ===================== SIMPLE STAR RATING =====================
+const RATING_DONE_KEY = 'cox_rating_done';
+
+function setupSimpleRating(){
+  const box = document.getElementById('ratingBox');
+  if(!box) return;
+  
+  const stars = box.querySelectorAll('.r-star');
+  const thanksEl = document.getElementById('ratingThanks');
+  const countEl = document.getElementById('ratingCount');
+  const alreadyRated = localStorage.getItem(RATING_DONE_KEY);
+  
+  // If already rated, show their previous rating and disable
+  if(alreadyRated){
+    const prevRating = parseInt(alreadyRated) || 0;
+    stars.forEach((s, i) => {
+      s.classList.add('disabled');
+      if(i < prevRating) s.classList.add('active');
+    });
+    thanksEl.classList.add('show');
+    thanksEl.textContent = `🙏 You rated us ${prevRating} star${prevRating > 1 ? 's' : ''}!`;
+  }
+  
+  // Show total count from cache
+  updateRatingCount();
+  
+  stars.forEach((star, idx) => {
+    star.addEventListener('mouseenter', () => {
+      if(localStorage.getItem(RATING_DONE_KEY)) return;
+      stars.forEach((s, i) => {
+        if(i <= idx) s.classList.add('active');
+        else s.classList.remove('active');
+      });
+    });
+    star.addEventListener('mouseleave', () => {
+      if(localStorage.getItem(RATING_DONE_KEY)) return;
+      stars.forEach(s => s.classList.remove('active'));
+    });
+    star.addEventListener('click', async () => {
+      if(localStorage.getItem(RATING_DONE_KEY)) return;
+      const rating = idx + 1;
+      // Lock the stars at this rating
+      stars.forEach((s, i) => {
+        s.classList.add('disabled');
+        if(i < rating) s.classList.add('active');
+        else s.classList.remove('active');
+      });
+      // Save to Firestore
+      const result = await window.submitSiteReview(rating, '', '');
+      if(result.ok){
+        localStorage.setItem(RATING_DONE_KEY, rating);
+        thanksEl.textContent = `🙏 Thanks! You rated us ${rating} star${rating > 1 ? 's' : ''}.`;
+        thanksEl.classList.add('show');
+        updateRatingCount();
+      } else {
+        // Allow retry on failure
+        stars.forEach(s => { s.classList.remove('disabled'); s.classList.remove('active'); });
+        thanksEl.textContent = '⚠️ Failed. Please try again.';
+        thanksEl.style.color = '#991b1b';
+        thanksEl.classList.add('show');
+      }
+    });
+  });
+}
+
+function updateRatingCount(){
+  const countEl = document.getElementById('ratingCount');
+  if(!countEl) return;
+  const reviews = window.siteReviewsCache || [];
+  if(reviews.length === 0){
+    countEl.textContent = 'Be the first to rate!';
+  } else {
+    const total = reviews.length;
+    const avg = (reviews.reduce((s,r) => s + (r.rating || 0), 0) / total).toFixed(1);
+    countEl.textContent = `${avg} / 5 · ${total} rating${total > 1 ? 's' : ''}`;
+  }
+}
+
+// Hook into reviews cache updates
+function renderPublicReviews(){
+  updateRatingCount();
+}
+
+// ===================== SECTION VIEW TRACKING =====================
+const SECTION_TRACK_KEY = 'cox_sections_tracked';
+const TRACKED_SECTIONS = [
+  {id: 'hotels',      label: 'Hotels'},
+  {id: 'prices',      label: 'Prices'},
+  {id: 'route',       label: 'Routes'},
+  {id: 'map-section', label: 'Map'},
+  {id: 'tips',        label: 'Tips'},
+  {id: 'restaurants', label: 'Restaurants'},
+  {id: 'places',      label: 'Places'},
+  {id: 'festivals',   label: 'Seasons'},
+  {id: 'emergency',   label: 'Emergency'},
+  {id: 'budget',      label: 'Budget Calc'}
+];
+
+function setupSectionTracking(){
+  // Get today's already-tracked sections
+  const today = new Date().toISOString().slice(0,10);
+  const stored = localStorage.getItem(SECTION_TRACK_KEY);
+  let trackedToday = {};
+  try {
+    const parsed = stored ? JSON.parse(stored) : {};
+    if(parsed.date === today) trackedToday = parsed.sections || {};
+  } catch(e){}
+  
+  function saveTracked(){
+    localStorage.setItem(SECTION_TRACK_KEY, JSON.stringify({
+      date: today,
+      sections: trackedToday
+    }));
+  }
+  
+  // IntersectionObserver for each section
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(!entry.isIntersecting) return;
+      const sectionId = entry.target.id;
+      if(trackedToday[sectionId]) return; // already counted today
+      trackedToday[sectionId] = true;
+      saveTracked();
+      // Increment in Firestore
+      if(window.fbDb){
+        window.fbDb.collection('section_views').doc(sectionId).set({
+          count: firebase.firestore.FieldValue.increment(1),
+          label: TRACKED_SECTIONS.find(s => s.id === sectionId)?.label || sectionId
+        }, {merge: true}).catch(()=>{});
+      }
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+  
+  TRACKED_SECTIONS.forEach(s => {
+    if(trackedToday[s.id]) return; // skip already-tracked
+    const el = document.getElementById(s.id);
+    if(el) observer.observe(el);
+  });
+  
+  // Track hotel type filter clicks (for Guess 2)
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('[data-track-filter]');
+    if(target){
+      const filterType = target.dataset.trackFilter;
+      if(window.fbDb){
+        window.fbDb.collection('filter_clicks').doc(filterType).set({
+          count: firebase.firestore.FieldValue.increment(1)
+        }, {merge: true}).catch(()=>{});
+      }
+    }
+  });
+}
+
+
+// Chart.js loader (lazy — only loaded when admin opens dashboard)
+let _chartJsPromise = null;
+function loadChartJs(){
+  if(_chartJsPromise) return _chartJsPromise;
+  _chartJsPromise = new Promise((resolve, reject) => {
+    if(typeof Chart !== 'undefined') return resolve(Chart);
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
+    s.onload = () => resolve(window.Chart);
+    s.onerror = () => reject(new Error('Chart.js failed to load'));
+    document.head.appendChild(s);
+  });
+  return _chartJsPromise;
+}
+
+// Track Chart instances so we can destroy them on re-render
+const _chartInstances = {};
+function destroyChart(key){
+  if(_chartInstances[key]){
+    try { _chartInstances[key].destroy(); } catch(e){}
+    delete _chartInstances[key];
+  }
+}
+
+async function renderAdminDashboard(){
+  const container = document.getElementById('dashboardContent');
+  if(!container) return;
+  
+  // Load Chart.js first
+  let Chart;
+  try { Chart = await loadChartJs(); }
+  catch(e){
+    container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--coral-dark)">❌ Chart library failed to load. Check internet.</div>';
+    return;
+  }
+  
+  const reviews = window.siteReviewsCache || [];
+  
+  // Fetch visit stats
+  const last30Days = await window.fetchDailyVisits(30);
+  const last7Days = last30Days.slice(-7);
+  const todayStr = new Date().toISOString().slice(0,10);
+  const todayCount = (last30Days.find(d => d.date === todayStr) || {count:0}).count;
+  const weekCount = last7Days.reduce((s,d) => s + d.count, 0);
+  const monthCount = last30Days.reduce((s,d) => s + d.count, 0);
+  
+  // Get total visits
+  let totalVisits = 0;
+  try {
+    const doc = await window.fbDb.collection('meta').doc('visitors').get();
+    totalVisits = (doc.exists && doc.data().count) ? doc.data().count : 0;
+  } catch(e){}
+  
+  // Review stats
+  const totalReviews = reviews.length;
+  const avgRating = totalReviews > 0 
+    ? (reviews.reduce((s,r) => s + (r.rating || 0), 0) / totalReviews).toFixed(1)
+    : '0.0';
+  const todayReviews = reviews.filter(r => {
+    if(!r.timestamp) return false;
+    const date = r.timestamp.toDate ? r.timestamp.toDate() : new Date((r.timestamp.seconds || 0) * 1000);
+    return date.toISOString().slice(0,10) === todayStr;
+  }).length;
+  
+  // Rating distribution
+  const dist = [0,0,0,0,0]; // 1-star to 5-star
+  reviews.forEach(r => {
+    const rating = Math.round(r.rating || 0);
+    if(rating >= 1 && rating <= 5) dist[rating-1]++;
+  });
+  
+  // Fetch section views
+  let sectionViews = [];
+  try {
+    const snap = await window.fbDb.collection('section_views').get();
+    snap.forEach(doc => {
+      const data = doc.data();
+      sectionViews.push({
+        id: doc.id,
+        label: data.label || doc.id,
+        count: data.count || 0
+      });
+    });
+    sectionViews.sort((a,b) => b.count - a.count);
+  } catch(e){ console.warn('section_views fetch failed', e); }
+  
+  // Fetch hotel filter clicks
+  let filterClicks = {luxury: 0, mid: 0, budget: 0, all: 0};
+  try {
+    const snap = await window.fbDb.collection('filter_clicks').get();
+    snap.forEach(doc => {
+      filterClicks[doc.id] = doc.data().count || 0;
+    });
+  } catch(e){}
+  
+  // Hotel count by category (from getAllHotels)
+  const hotels = (typeof getAllHotels === 'function') ? getAllHotels() : [];
+  const luxuryCount = hotels.filter(h => h.type === 'luxury').length;
+  const midCount    = hotels.filter(h => h.type === 'mid').length;
+  const budgetCount = hotels.filter(h => h.type === 'budget').length;
+  
+  // Destroy old charts before re-rendering
+  ['visitsChart','sectionsChart','hotelTypeChart','ratingsChart','filterChart'].forEach(destroyChart);
+  
+  container.innerHTML = `
+    <!-- TOP STATS -->
+    <div style="margin-bottom:24px">
+      <h3 style="color:var(--ocean-dark);margin-bottom:10px;font-family:'Tiro Bangla',serif;font-size:1.1rem">📈 Visitor Statistics</h3>
+      <div class="dashboard-grid">
+        <div class="stat-card coral">
+          <div class="stat-card-label">📅 Today</div>
+          <div class="stat-card-value">${toBnNum(todayCount)}</div>
+          <div class="stat-card-sub">New visitors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">📊 This week</div>
+          <div class="stat-card-value">${toBnNum(weekCount)}</div>
+          <div class="stat-card-sub">Last 7 days</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="stat-card-label">📆 This month</div>
+          <div class="stat-card-value">${toBnNum(monthCount)}</div>
+          <div class="stat-card-sub">Last 30 days</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-card-label">🌟 All time</div>
+          <div class="stat-card-value">${toBnNum(totalVisits)}</div>
+          <div class="stat-card-sub">Total visits</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- VISITS LINE CHART (last 30 days) -->
+    <div class="chart-section">
+      <h4 style="font-family:'Tiro Bangla',serif">📈 Daily visits — last 30 days</h4>
+      <div style="position:relative;height:220px"><canvas id="visitsChart"></canvas></div>
+    </div>
+    
+    <!-- TWO CHARTS SIDE BY SIDE -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:16px 0">
+      
+      <!-- SECTION POPULARITY (BAR) -->
+      <div class="chart-section">
+        <h4 style="font-family:'Tiro Bangla',serif">🔥 Section popularity</h4>
+        ${sectionViews.length === 0 
+          ? '<div style="text-align:center;padding:30px;color:var(--muted);font-size:0.85rem">No data yet. Will populate as visitors browse sections.</div>'
+          : `<div style="position:relative;height:240px"><canvas id="sectionsChart"></canvas></div>`
+        }
+      </div>
+      
+      <!-- HOTEL TYPE DONUT -->
+      <div class="chart-section">
+        <h4 style="font-family:'Tiro Bangla',serif">🏨 Hotel categories (in DB)</h4>
+        <div style="position:relative;height:240px"><canvas id="hotelTypeChart"></canvas></div>
+      </div>
+      
+      <!-- HOTEL FILTER CLICKS -->
+      <div class="chart-section">
+        <h4 style="font-family:'Tiro Bangla',serif">👆 Hotel filter clicks</h4>
+        ${(filterClicks.luxury + filterClicks.mid + filterClicks.budget + filterClicks.all) === 0
+          ? '<div style="text-align:center;padding:30px;color:var(--muted);font-size:0.85rem">No clicks yet. Visitors have not used the filter buttons.</div>'
+          : `<div style="position:relative;height:240px"><canvas id="filterChart"></canvas></div>`
+        }
+      </div>
+      
+      <!-- RATINGS -->
+      <div class="chart-section">
+        <h4 style="font-family:'Tiro Bangla',serif">⭐ Star ratings</h4>
+        ${totalReviews === 0
+          ? '<div style="text-align:center;padding:30px;color:var(--muted);font-size:0.85rem">No ratings yet. Visitors have not rated the site.</div>'
+          : `<div style="position:relative;height:240px"><canvas id="ratingsChart"></canvas></div>
+             <div style="text-align:center;margin-top:10px;color:var(--muted);font-size:0.85rem">
+               <strong style="color:var(--ocean-dark);font-size:1.1rem">${toBnNum(avgRating)} / 5</strong>
+               &nbsp;·&nbsp; ${toBnNum(totalReviews)} rating${totalReviews>1?'s':''}
+               &nbsp;·&nbsp; today: ${toBnNum(todayReviews)}
+             </div>`
+        }
+      </div>
+      
+    </div>
+  `;
+  
+  // ----- Render Chart.js charts -----
+  
+  // 1. Visits line chart
+  const visitsCtx = document.getElementById('visitsChart');
+  if(visitsCtx){
+    _chartInstances.visitsChart = new Chart(visitsCtx, {
+      type: 'line',
+      data: {
+        labels: last30Days.map(d => d.date.slice(5)), // MM-DD
+        datasets: [{
+          label: 'Visits',
+          data: last30Days.map(d => d.count),
+          borderColor: '#0077b6',
+          backgroundColor: 'rgba(0,119,182,0.15)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.35,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          pointBackgroundColor: '#0077b6'
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, ticks: { precision: 0 } },
+          x: { ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 10 } }
+        }
+      }
+    });
+  }
+  
+  // 2. Section popularity bar chart
+  const sectionsCtx = document.getElementById('sectionsChart');
+  if(sectionsCtx && sectionViews.length > 0){
+    _chartInstances.sectionsChart = new Chart(sectionsCtx, {
+      type: 'bar',
+      data: {
+        labels: sectionViews.map(s => s.label),
+        datasets: [{
+          label: 'Views',
+          data: sectionViews.map(s => s.count),
+          backgroundColor: [
+            '#0077b6','#00b4d8','#48cae4','#90e0ef','#caf0f8',
+            '#e76f51','#f4a261','#e9c46a','#2a9d8f','#264653'
+          ],
+          borderRadius: 6,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true, ticks: { precision: 0 } }
+        }
+      }
+    });
+  }
+  
+  // 3. Hotel type donut
+  const hotelCtx = document.getElementById('hotelTypeChart');
+  if(hotelCtx){
+    _chartInstances.hotelTypeChart = new Chart(hotelCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Luxury', 'Mid-range', 'Budget'],
+        datasets: [{
+          data: [luxuryCount, midCount, budgetCount],
+          backgroundColor: ['#c67522', '#0077b6', '#2a9d8f'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12 } }
+        },
+        cutout: '60%'
+      }
+    });
+  }
+  
+  // 4. Hotel filter clicks donut
+  const filterCtx = document.getElementById('filterChart');
+  const fcTotal = filterClicks.luxury + filterClicks.mid + filterClicks.budget + filterClicks.all;
+  if(filterCtx && fcTotal > 0){
+    _chartInstances.filterChart = new Chart(filterCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['All', 'Luxury', 'Mid-range', 'Budget'],
+        datasets: [{
+          data: [filterClicks.all, filterClicks.luxury, filterClicks.mid, filterClicks.budget],
+          backgroundColor: ['#6b7280', '#c67522', '#0077b6', '#2a9d8f'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12 } }
+        },
+        cutout: '60%'
+      }
+    });
+  }
+  
+  // 5. Star rating bar chart
+  const ratingsCtx = document.getElementById('ratingsChart');
+  if(ratingsCtx && totalReviews > 0){
+    _chartInstances.ratingsChart = new Chart(ratingsCtx, {
+      type: 'bar',
+      data: {
+        labels: ['5★','4★','3★','2★','1★'],
+        datasets: [{
+          label: 'Count',
+          data: [dist[4], dist[3], dist[2], dist[1], dist[0]],
+          backgroundColor: ['#fbbf24','#f59e0b','#d97706','#b45309','#92400e'],
+          borderRadius: 6,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true, ticks: { precision: 0 } }
+        }
+      }
+    });
+  }
+}
+
+async function adminDeleteReview(reviewId){
+  // No-op anymore — reviews are anonymous, just kept in DB
+  // Could implement later if needed
+}
 
 // ===== WEATHER WIDGET =====
 const WEATHER_API_KEY = '5146f053782aeca05d100a2e64f5d427';
@@ -4091,6 +4838,7 @@ function renderWeather(data){
       loginBox.style.display = 'none';
       panel.classList.add('visible');
       // Render all admin tables now that user is in
+      if(typeof renderAdminDashboard === 'function') renderAdminDashboard();
       if(typeof renderAdminTable === 'function') renderAdminTable();
       if(typeof renderAdminStats === 'function') renderAdminStats();
       if(typeof renderAdminTransport === 'function') renderAdminTransport();
@@ -4105,20 +4853,24 @@ function renderWeather(data){
     }
   });
 
-  // ----- Real visitor counter via Firestore -----
+  // ----- Real visitor counter via Firestore (with daily aggregation for dashboard) -----
   window.trackVisit = async function(){
     const display = document.getElementById('visitorCount');
-    const today = new Date().toISOString().slice(0,10);
+    const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
     const lastVisit = localStorage.getItem('cox_last_visit');
     const shouldIncrement = (lastVisit !== today);
 
     try {
       const ref = db.collection('meta').doc('visitors');
       if(shouldIncrement){
-        // Mark today as visited locally (so refresh doesn't re-increment)
         localStorage.setItem('cox_last_visit', today);
-        // Increment server counter
+        // 1. Increment lifetime total
         await ref.set({ count: firebase.firestore.FieldValue.increment(1) }, {merge:true});
+        // 2. Increment today's daily counter (for dashboard charts)
+        await db.collection('daily_visits').doc(today).set({
+          count: firebase.firestore.FieldValue.increment(1),
+          date: today
+        }, {merge:true});
       }
       // Read current total
       const doc = await ref.get();
@@ -4129,8 +4881,73 @@ function renderWeather(data){
       }
     } catch(e){
       console.warn('Visitor counter failed', e);
-      // Fallback: show "—" rather than misleading per-browser count
       if(display) display.textContent = '—';
+    }
+  };
+
+  // ----- SITE REVIEWS Data Layer -----
+  window.submitSiteReview = async function(rating, name, comment){
+    try {
+      await db.collection('site_reviews').add({
+        rating: Number(rating),
+        name: (name || 'Anonymous').slice(0, 30),
+        comment: (comment || '').slice(0, 500),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        lang: (typeof currentLang !== 'undefined') ? currentLang : 'bn'
+      });
+      // Mark that this browser has reviewed
+      localStorage.setItem('cox_reviewed', new Date().toISOString());
+      localStorage.removeItem('cox_review_popup_skip_until');
+      return { ok: true };
+    } catch(e){
+      console.warn('Review submit failed', e);
+      return { ok: false, error: e.message };
+    }
+  };
+  window.deleteSiteReview = async function(reviewId){
+    try {
+      await db.collection('site_reviews').doc(reviewId).delete();
+      return { ok: true };
+    } catch(e){
+      console.warn('Review delete failed', e);
+      return { ok: false, error: e.message };
+    }
+  };
+  // Cache for reviews + listener for real-time updates
+  window.siteReviewsCache = [];
+  function startReviewsListener(){
+    db.collection('site_reviews')
+      .orderBy('timestamp', 'desc')
+      .limit(100)
+      .onSnapshot(snap => {
+        window.siteReviewsCache = snap.docs.map(d => Object.assign({id: d.id}, d.data()));
+        // Trigger re-renders
+        if(typeof renderPublicReviews === 'function') renderPublicReviews();
+        if(typeof renderAdminDashboard === 'function' && isAdminVisible()) renderAdminDashboard();
+      }, err => console.warn('Reviews snapshot err', err));
+  }
+  startReviewsListener();
+
+  // Fetch daily visits for last N days (for dashboard chart)
+  window.fetchDailyVisits = async function(days){
+    days = days || 7;
+    try {
+      const dates = [];
+      const today = new Date();
+      for(let i = days - 1; i >= 0; i--){
+        const d = new Date(today);
+        d.setDate(d.getDate() - i);
+        dates.push(d.toISOString().slice(0,10));
+      }
+      const results = await Promise.all(dates.map(date => 
+        db.collection('daily_visits').doc(date).get()
+          .then(doc => ({date, count: doc.exists ? (doc.data().count || 0) : 0}))
+          .catch(() => ({date, count: 0}))
+      ));
+      return results;
+    } catch(e){
+      console.warn('Daily fetch failed', e);
+      return [];
     }
   };
 
