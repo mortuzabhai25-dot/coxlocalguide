@@ -904,6 +904,50 @@
 
   /* ── FOOTER ── */
   
+  /* ── WhatsApp Floating Button ── */
+  .whatsapp-fab {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    width: 58px; height: 58px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(37,211,102,0.45);
+    z-index: 999;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: wa-pulse 2.8s ease-in-out infinite;
+  }
+  .whatsapp-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 28px rgba(37,211,102,0.55);
+    animation: none;
+  }
+  .whatsapp-fab:active { transform: scale(0.96); }
+  .whatsapp-fab svg { width: 32px; height: 32px; fill: white; }
+  .whatsapp-fab .wa-tooltip {
+    position: absolute;
+    right: 70px; top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.85);
+    color: white; font-size: 0.78rem;
+    font-family: 'Hind Siliguri', sans-serif;
+    padding: 6px 12px; border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .whatsapp-fab:hover .wa-tooltip { opacity: 1; }
+  @keyframes wa-pulse {
+    0%, 100% { box-shadow: 0 6px 20px rgba(37,211,102,0.45), 0 0 0 0 rgba(37,211,102,0.5); }
+    50%      { box-shadow: 0 6px 20px rgba(37,211,102,0.45), 0 0 0 12px rgba(37,211,102,0); }
+  }
+  @media (max-width: 600px){
+    .whatsapp-fab { width: 52px; height: 52px; bottom: 18px; right: 18px; }
+    .whatsapp-fab svg { width: 28px; height: 28px; }
+    .whatsapp-fab .wa-tooltip { display: none; }
+  }
+  
   /* ============================================
      SIMPLE STAR RATING — compact, footer-area
      ============================================ */
@@ -1559,7 +1603,7 @@
         <p>সিজন ও অফ-সিজনের আসল দাম, ঠিকানা ও ফোন নম্বর সহ ৬০+ হোটেলের তথ্য।</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🍽️</div>
+        <div class="feature-icon">🍴</div>
         <h3>খাবার গাইড</h3>
         <p>লোকালদের পছন্দের রেস্টুরেন্ট থেকে শুরু করে সীফুড বাজার দর — সব এক জায়গায়।</p>
       </div>
@@ -1702,7 +1746,7 @@
       <button class="map-filter-btn" onclick="filterMap('luxury',this)">⭐ লাক্সারি</button>
       <button class="map-filter-btn" onclick="filterMap('mid',this)">🏨 মধ্যম</button>
       <button class="map-filter-btn" onclick="filterMap('budget',this)">🏕️ বাজেট</button>
-      <button class="map-filter-btn" onclick="filterMap('restaurant',this)" data-i18n="map_restaurants">🍽️ রেস্টুরেন্ট</button>
+      <button class="map-filter-btn" onclick="filterMap('restaurant',this)" data-i18n="map_restaurants">🍴 রেস্টুরেন্ট</button>
       <button class="map-filter-btn" onclick="filterMap('place',this)" data-i18n="map_places">🗺️ দর্শনীয় স্থান</button>
     </div>
     <div id="hotelMap"></div>
@@ -1818,7 +1862,7 @@
 <!-- RESTAURANTS -->
 <section id="restaurants">
   <div class="section-inner">
-    <div class="section-tag">🍽️ খাবার গাইড</div>
+    <div class="section-tag">🍴 খাবার গাইড</div>
     <h2 class="section-title">সেরা <em>রেস্টুরেন্ট</em> খুঁজে নিন</h2>
     <p class="section-sub">লোকালদের পছন্দের জায়গা থেকে শুরু করে ট্যুরিস্ট রেস্টুরেন্ট — সব এখানে।</p>
     <div class="rest-grid">
@@ -2024,7 +2068,7 @@
 
       <div class="budget-breakdown">
         <div class="budget-row"><span class="budget-row-label">🏨 হোটেল</span><span class="budget-row-val" id="bHotel">৳৩,২০০</span></div>
-        <div class="budget-row"><span class="budget-row-label">🍽️ খাবার</span><span class="budget-row-val" id="bFood">৳১,৬০০</span></div>
+        <div class="budget-row"><span class="budget-row-label">🍴 খাবার</span><span class="budget-row-val" id="bFood">৳১,৬০০</span></div>
         <div class="budget-row"><span class="budget-row-label">🚌 যাতায়াত</span><span class="budget-row-val" id="bTransport">৳৮০০</span></div>
         <div class="budget-row"><span class="budget-row-label">🎡 বিনোদন</span><span class="budget-row-val" id="bEntertain">৳৬০০</span></div>
       </div>
@@ -2291,12 +2335,21 @@
   <p>কক্সবাজারের একজন লোকাল তৈরি করেছে — টুরিস্টদের জন্য।<br>
   লোকালদের মতো ঘুরুন, টুরিস্টের মতো ঠকবেন না।</p>
   <p style="margin-top:16px;opacity:0.6;font-size:0.82rem">© 2026 Cox Local Guide</p>
+  <p style="margin-top:8px;opacity:0.7;font-size:0.82rem">📧 যোগাযোগ: <a href="mailto:mortuzabhai25@gmail.com">mortuzabhai25@gmail.com</a></p>
 
   <div style="margin-top:20px;">
     <p data-i18n="footer_made">Made with ❤️ for travelers</p>
     <div class="visitor-badge">👀 <span data-i18n="visits_label">মোট ভিজিট:</span> <span id="visitorCount">—</span></div>
   </div>
 </footer>
+
+<!-- WhatsApp Floating Button -->
+<a class="whatsapp-fab" href="https://wa.me/8801815374482?text=আসসালামু%20আলাইকুম,%20Cox%20Local%20Guide%20থেকে%20যোগাযোগ%20করছি।" target="_blank" rel="noopener" aria-label="WhatsApp এ যোগাযোগ করুন">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span class="wa-tooltip">WhatsApp এ মেসেজ করুন</span>
+</a>
 
 <!-- COMPARE FLOATING BAR -->
 <div class="compare-floating-bar" id="compareBar">
@@ -2528,8 +2581,8 @@ function calcRoute() {
 // Budget calculator
 let persons=2, days=2;
 function changeCount(type, delta) {
-  if (type==='person') { persons=Math.max(1,Math.min(20,persons+delta)); document.getElementById('personVal').textContent=persons+' জন'; }
-  else { days=Math.max(1,Math.min(14,days+delta)); document.getElementById('dayVal').textContent=days+' দিন'; }
+  if (type==='person') { persons=Math.max(1,Math.min(20,persons+delta)); document.getElementById('personVal').textContent=toBnNum(persons)+' জন'; }
+  else { days=Math.max(1,Math.min(14,days+delta)); document.getElementById('dayVal').textContent=toBnNum(days)+' দিন'; }
   updateBudget();
 }
 function updateBudget() {
@@ -2602,7 +2655,6 @@ function showRouteResult(text){
 </script>
 
 
-<a href="https://wa.me/8801320222222" target="_blank" class="floating-btn" title="WhatsApp সাহায্য">💬</a>
 <script>
 // OPEN MAP
 function openMap(){
@@ -2741,7 +2793,7 @@ const MARKER_COLORS = {
 function createMarkerIcon(category, type, isAdmin){
   let color, emoji;
   if(category === 'place'){ color = MARKER_COLORS.place; emoji = '📍'; }
-  else if(category === 'restaurant'){ color = MARKER_COLORS.restaurant; emoji = '🍽️'; }
+  else if(category === 'restaurant'){ color = MARKER_COLORS.restaurant; emoji = '🍴'; }
   else if(isAdmin){ color = MARKER_COLORS.admin; emoji = '⭐'; }
   else { color = MARKER_COLORS[type] || '#888'; emoji = '🏨'; }
   
@@ -2782,8 +2834,8 @@ function makePlacePopup(p){
 
 function makeRestPopup(r){
   return `<div style="min-width:200px;max-width:240px">
-    <div class="popup-name">${r.icon || '🍽️'} ${r.name}</div>
-    <span class="popup-type" style="background:rgba(155,89,182,0.12);color:#8e44ad">🍽️ রেস্টুরেন্ট</span>
+    <div class="popup-name">${r.icon || '🍴'} ${r.name}</div>
+    <span class="popup-type" style="background:rgba(155,89,182,0.12);color:#8e44ad">🍴 রেস্টুরেন্ট</span>
     ${r.cuisine ? `<div class="popup-price" style="margin-top:6px">${r.cuisine}</div>` : ''}
     ${r.addr ? `<div class="popup-price">📍 ${r.addr}</div>` : ''}
     <div class="popup-actions">
