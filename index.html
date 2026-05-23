@@ -282,7 +282,7 @@
   
   /* ☀️ Sunny Day — bright sky + sun glow */
   .hero[data-weather="sunny"] {
-    background: linear-gradient(180deg, #4cc9f0 0%, #6ab4e8 25%, #4a98d8 55%, #1565a0 80%, #003d6b 100%);
+    background: linear-gradient(180deg, #5dd0f5 0%, #4db8ec 22%, #3a9fd8 48%, #1a72b5 72%, #0a5290 88%, #04365e 100%);
   }
   .hero[data-weather="sunny"] .hero-sky::before {
     content: ''; position: absolute;
@@ -362,7 +362,7 @@
   
   /* ⛅ Cloudy — gray sky + drifting clouds */
   .hero[data-weather="cloudy"] {
-    background: linear-gradient(180deg, #607890 0%, #7895b3 30%, #5e7a96 60%, #3a5572 85%, #1f344d 100%);
+    background: linear-gradient(180deg, #6e8294 0%, #8299ac 28%, #6b8497 58%, #46627a 84%, #283e52 100%);
   }
   .hero[data-weather="cloudy"] .hero-sky::before, 
   .hero[data-weather="cloudy"] .hero-sky::after {
@@ -392,60 +392,73 @@
   
   /* 🌧️ Rainy — dark sky + falling rain */
   .hero[data-weather="rainy"] {
-    background: linear-gradient(180deg, #2c3e50 0%, #34495e 25%, #1c2833 60%, #0d1418 85%, #050a0e 100%);
+    background: linear-gradient(180deg, #3a4a5c 0%, #2c3e50 25%, #1c2833 60%, #131c26 85%, #0a1018 100%);
   }
   .hero[data-weather="rainy"] .hero-sky::before {
-    content: ''; position: absolute; inset: 0;
-    background-image:
-      linear-gradient(180deg, transparent 0%, rgba(180,210,230,0.5) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(180,210,230,0.5) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(180,210,230,0.5) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(180,210,230,0.5) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(180,210,230,0.5) 50%, transparent 100%);
-    background-size: 2px 22px, 2px 26px, 2px 20px, 2px 24px, 2px 21px;
-    background-position: 8% 0, 22% 0, 38% 0, 55% 0, 72% 0;
-    background-repeat: repeat-y;
-    animation: rain-fall 0.6s linear infinite;
+    content: ''; position: absolute;
+    top: -20%; left: -10%; right: -10%; bottom: -20%;
+    background-image: repeating-linear-gradient(
+      100deg,
+      rgba(190,215,235,0) 0px,
+      rgba(190,215,235,0) 3px,
+      rgba(190,215,235,0.30) 3px,
+      rgba(190,215,235,0.30) 4px
+    );
+    background-size: 16px 100%;
+    animation: rain-streaks 0.55s linear infinite;
   }
   .hero[data-weather="rainy"] .hero-sky::after {
-    content: ''; position: absolute; inset: 0;
-    background-image:
-      linear-gradient(180deg, transparent 0%, rgba(180,210,230,0.42) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(180,210,230,0.42) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(180,210,230,0.42) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(180,210,230,0.42) 50%, transparent 100%);
-    background-size: 1.5px 18px, 1.5px 22px, 1.5px 16px, 1.5px 20px;
-    background-position: 15% 0, 30% 0, 48% 0, 88% 0;
-    background-repeat: repeat-y;
-    animation: rain-fall 0.5s linear infinite;
+    content: ''; position: absolute;
+    top: -20%; left: -10%; right: -10%; bottom: -20%;
+    background-image: repeating-linear-gradient(
+      98deg,
+      rgba(210,230,245,0) 0px,
+      rgba(210,230,245,0) 5px,
+      rgba(210,230,245,0.22) 5px,
+      rgba(210,230,245,0.22) 6px
+    );
+    background-size: 24px 100%;
+    animation: rain-streaks 0.85s linear infinite;
   }
-  @keyframes rain-fall {
-    0%   { background-position-y: -25px, -25px, -25px, -25px, -25px; }
-    100% { background-position-y: 100%, 100%, 100%, 100%, 100%; }
+  @keyframes rain-streaks {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(-16px, 90px); }
   }
   
-  /* ⛈️ Storm — darker + heavy rain + flash */
+  /* ⛈️ Storm — darker + heavy rain + realistic lightning */
   .hero[data-weather="storm"] {
-    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f1f3c 65%, #06112a 85%, #020716 100%);
-    animation: storm-flash 9s ease-in-out infinite;
+    background: linear-gradient(180deg, #232338 0%, #1a1a2e 30%, #131f38 65%, #0a1428 85%, #04081a 100%);
   }
   .hero[data-weather="storm"] .hero-sky::before {
-    content: ''; position: absolute; inset: 0;
-    background-image:
-      linear-gradient(180deg, transparent 0%, rgba(200,220,240,0.55) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(200,220,240,0.55) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(200,220,240,0.55) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(200,220,240,0.55) 50%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, rgba(200,220,240,0.55) 50%, transparent 100%);
-    background-size: 2px 22px, 2px 26px, 2px 20px, 2px 24px, 2px 21px;
-    background-position: 8% 0, 22% 0, 38% 0, 55% 0, 72% 0;
-    background-repeat: repeat-y;
-    animation: rain-fall 0.45s linear infinite;
+    content: ''; position: absolute;
+    top: -20%; left: -10%; right: -10%; bottom: -20%;
+    background-image: repeating-linear-gradient(
+      100deg,
+      rgba(200,220,240,0) 0px,
+      rgba(200,220,240,0) 2px,
+      rgba(200,220,240,0.40) 2px,
+      rgba(200,220,240,0.40) 3.5px
+    );
+    background-size: 13px 100%;
+    animation: rain-streaks 0.4s linear infinite;
   }
-  @keyframes storm-flash {
-    0%, 92%, 100% { filter: brightness(1); }
-    93%, 95%      { filter: brightness(1.4); }
-    94%           { filter: brightness(1.9); }
+  /* Lightning flash overlay */
+  .hero[data-weather="storm"] .hero-sky::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 68% -10%, rgba(255,255,255,0.85) 0%, rgba(200,220,255,0.3) 25%, transparent 50%);
+    opacity: 0;
+    animation: lightning 8s linear infinite;
+  }
+  @keyframes lightning {
+    0%, 46%, 100% { opacity: 0; }
+    47%  { opacity: 0.9; }
+    48%  { opacity: 0.15; }
+    49%  { opacity: 1; }
+    51%  { opacity: 0; }
+    73%  { opacity: 0; }
+    74%  { opacity: 0.75; }
+    76%  { opacity: 0; }
   }
   
   /* 🌫️ Foggy — hazy gradient */
@@ -540,10 +553,9 @@
     /* Slower cloud drift to reduce paint work */
     .hero[data-weather="cloudy"] .hero-sky::before { animation-duration: 38s; width: 200px; height: 75px; }
     .hero[data-weather="cloudy"] .hero-sky::after  { animation-duration: 45s; width: 230px; height: 80px; }
-    /* Lighter rain on mobile (no second layer for rainy) */
-    .hero[data-weather="rainy"] .hero-sky::after { display: none; }
-    .hero[data-weather="rainy"] .hero-sky::before { animation-duration: 0.8s; }
-    .hero[data-weather="storm"] .hero-sky::before { animation-duration: 0.65s; }
+    /* Lighter rain on mobile (hide secondary layer, keep main) */
+    .hero[data-weather="rainy"] .hero-sky::after { opacity: 0.6; }
+    /* storm lightning stays — it's lightweight */
   }
   
   /* ===== Accessibility: respect motion preference ===== */
@@ -556,6 +568,7 @@
     .hero[data-weather="rainy"] .hero-sky::after,
     .hero[data-weather="storm"],
     .hero[data-weather="storm"] .hero-sky::before,
+    .hero[data-weather="storm"] .hero-sky::after,
     .hero[data-weather="foggy"] .hero-sky::before {
       animation: none !important;
     }
@@ -662,11 +675,12 @@
   }
   .tab-btn.active { background: var(--ocean); color: white; }
   .tab-content { display: none; }
-  .tab-content.active { display: block; }
+  .tab-content.active { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .price-table {
     width: 100%; border-collapse: collapse;
     background: var(--white); border-radius: 16px;
     overflow: hidden; box-shadow: var(--shadow);
+    min-width: 480px;
   }
   .price-table thead tr { background: var(--ocean-dark); }
   .price-table thead th {
@@ -889,8 +903,6 @@
   .budget-total-num { color: white; font-size: 1.6rem; font-weight: 700; font-family: 'Tiro Bangla', serif; }
 
   /* ── FOOTER ── */
-  footer {
-
   
   /* ============================================
      SIMPLE STAR RATING — compact, footer-area
@@ -949,13 +961,17 @@
     line-height: 1;
     user-select: none;
     transition: transform 0.15s ease, color 0.15s ease;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    /* Force text rendering (not emoji) so color works on all devices */
+    font-family: 'Arial', 'Segoe UI Symbol', sans-serif;
+    -webkit-text-fill-color: currentColor;
+    text-rendering: optimizeLegibility;
   }
   .rating-stars .r-star:hover {
     transform: scale(1.18);
   }
   .rating-stars .r-star.active {
     color: #fbbf24;
+    -webkit-text-fill-color: #fbbf24;
     text-shadow: 0 0 8px rgba(251,191,36,0.5);
   }
   .rating-stars .r-star.disabled { cursor: default; }
@@ -1117,6 +1133,8 @@
     text-align: center; padding: 40px 24px;
     font-size: 0.88rem; line-height: 1.8;
   }
+  footer p { max-width: 600px; margin-left: auto; margin-right: auto; }
+  footer .visitor-badge { display: inline-flex; align-items: center; gap: 6px; justify-content: center; }
   footer .footer-brand {
     font-family: 'Tiro Bangla', serif; font-size: 1.5rem;
     color: white; margin-bottom: 12px; display: block;
@@ -1475,19 +1493,24 @@
   <div class="hero-ocean">
     <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Deep ocean layer (furthest, darkest) -->
-      <path d="M0,80 C150,60 300,90 450,75 C600,60 750,85 900,75 C1050,65 1150,80 1200,75 L1200,200 L0,200 Z" 
-            fill="rgba(0,0,0,0.35)"/>
+      <path d="M0,70 C120,52 260,82 400,68 C540,54 680,80 820,70 C960,60 1080,76 1200,68 L1200,200 L0,200 Z" 
+            fill="rgba(0,0,0,0.32)"/>
       <!-- Mid wave layer -->
-      <path d="M0,110 C200,90 400,120 600,105 C800,90 1000,115 1200,100 L1200,200 L0,200 Z" 
-            fill="rgba(0,0,0,0.25)"/>
-      <!-- Front wave with foam -->
-      <path d="M0,145 C150,130 300,155 450,140 C600,128 750,150 900,142 C1050,134 1150,148 1200,142 L1200,200 L0,200 Z" 
-            fill="rgba(0,0,0,0.2)"/>
-      <!-- Foam highlights -->
-      <path d="M0,142 C150,128 300,152 450,138 C600,126 750,148 900,140 C1050,132 1150,146 1200,140" 
-            fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-      <!-- Beach sand at very bottom -->
-      <path d="M0,180 Q200,170 600,178 T1200,180 L1200,200 L0,200 Z" fill="#f9f3e8" opacity="0.95"/>
+      <path d="M0,100 C160,82 340,112 520,98 C700,84 880,108 1060,96 C1130,91 1170,98 1200,95 L1200,200 L0,200 Z" 
+            fill="rgba(0,0,0,0.22)"/>
+      <!-- Front wave -->
+      <path d="M0,138 C140,122 300,148 460,134 C620,120 760,144 920,136 C1040,130 1130,140 1200,135 L1200,200 L0,200 Z" 
+            fill="rgba(0,0,0,0.18)"/>
+      <!-- Foam highlight on front wave -->
+      <path d="M0,136 C140,120 300,146 460,132 C620,118 760,142 920,134 C1040,128 1130,138 1200,133" 
+            fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round"/>
+      <!-- Secondary foam line -->
+      <path d="M0,150 C200,140 400,158 600,148 C800,138 1000,156 1200,148" 
+            fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+      <!-- Wet sand reflection zone -->
+      <path d="M0,168 Q300,158 600,166 T1200,168 L1200,182 L0,182 Z" fill="rgba(255,255,255,0.12)"/>
+      <!-- Beach sand -->
+      <path d="M0,176 Q200,168 600,174 T1200,176 L1200,200 L0,200 Z" fill="#f9f3e8"/>
     </svg>
   </div>
   
@@ -2252,11 +2275,11 @@
   <div class="rating-box-title">Give us a rating</div>
   <div class="rating-box-sub">Tap a star to rate your experience</div>
   <div class="rating-stars" id="ratingStars">
-    <span class="r-star" data-value="1">★</span>
-    <span class="r-star" data-value="2">★</span>
-    <span class="r-star" data-value="3">★</span>
-    <span class="r-star" data-value="4">★</span>
-    <span class="r-star" data-value="5">★</span>
+    <span class="r-star" data-value="1">★&#xFE0E;</span>
+    <span class="r-star" data-value="2">★&#xFE0E;</span>
+    <span class="r-star" data-value="3">★&#xFE0E;</span>
+    <span class="r-star" data-value="4">★&#xFE0E;</span>
+    <span class="r-star" data-value="5">★&#xFE0E;</span>
   </div>
   <div class="rating-thanks" id="ratingThanks">🙏 Thanks for your feedback!</div>
   <div class="rating-count" id="ratingCount"></div>
@@ -2267,12 +2290,12 @@
   <span class="footer-brand">🌊 Cox Local Guide</span>
   <p>কক্সবাজারের একজন লোকাল তৈরি করেছে — টুরিস্টদের জন্য।<br>
   লোকালদের মতো ঘুরুন, টুরিস্টের মতো ঠকবেন না।</p>
-  <p style="margin-top:16px;opacity:0.6;font-size:0.82rem">© 2026 Cox Local Guide · তথ্যসূত্র: <a href="https://vromonguide.com/best-hotel-resort-in-coxsbazar" target="_blank">VromonGuide.com</a></p>
+  <p style="margin-top:16px;opacity:0.6;font-size:0.82rem">© 2026 Cox Local Guide</p>
 
-<div style="margin-top:20px;">
-<p data-i18n="footer_made">Made with ❤️ for travelers</p>
-<div class="visitor-badge">👀 <span data-i18n="visits_label">মোট ভিজিট:</span> <span id="visitorCount">—</span></div>
-</div>
+  <div style="margin-top:20px;">
+    <p data-i18n="footer_made">Made with ❤️ for travelers</p>
+    <div class="visitor-badge">👀 <span data-i18n="visits_label">মোট ভিজিট:</span> <span id="visitorCount">—</span></div>
+  </div>
 </footer>
 
 <!-- COMPARE FLOATING BAR -->
