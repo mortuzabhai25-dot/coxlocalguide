@@ -1270,24 +1270,38 @@
 
   <!-- Leaflet Map (CSS loaded lazily when map section is in view) -->
   <style>
-    /* ── MAP SECTION ── */
+    /* ── MAP SECTION (Google My Maps embed) ── */
     #map-section { background: var(--white); }
-    .map-filter-bar { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
-    .map-filter-btn { padding:8px 18px; border:2px solid var(--ocean); border-radius:20px; background:transparent;
-      font-family:'Hind Siliguri',sans-serif; font-size:0.85rem; font-weight:600; color:var(--ocean); cursor:pointer; transition:all 0.2s; }
-    .map-filter-btn.active,.map-filter-btn:hover { background:var(--ocean); color:#fff; }
-    #hotelMap { width:100%; height:500px; border-radius:18px; box-shadow:var(--shadow-lg); border:2px solid var(--border); }
-    .map-legend { display:flex; gap:20px; margin-top:14px; flex-wrap:wrap; }
-    .legend-item { display:flex; align-items:center; gap:7px; font-size:0.82rem; font-weight:600; color:var(--text); }
-    .legend-dot { width:14px; height:14px; border-radius:50%; border:2px solid rgba(0,0,0,0.2); }
-    .legend-luxury { background:#f4a261; }
-    .legend-mid { background:#0077b6; }
-    .legend-budget { background:#2a9d8f; }
-    .legend-admin { background:#e76f51; }
-    /* Map popup */
-    .popup-name { font-weight:700; font-size:1rem; color:#023e8a; margin-bottom:5px; }
-    .popup-type { font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:12px; display:inline-block; margin-bottom:6px; }
-    .popup-price { font-size:0.82rem; color:#6b7280; margin-bottom:5px; }
+    .gmap-wrap {
+      width: 100%;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--border);
+      background: #e8eef2;
+      line-height: 0;
+    }
+    .gmap-wrap iframe {
+      width: 100%;
+      height: 520px;
+      border: 0;
+      display: block;
+    }
+    .gmap-fulllink {
+      display: inline-block;
+      color: var(--ocean);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      padding: 8px 18px;
+      border: 2px solid var(--ocean);
+      border-radius: 22px;
+      transition: all 0.2s;
+    }
+    .gmap-fulllink:hover { background: var(--ocean); color: #fff; }
+    @media (max-width: 600px) {
+      .gmap-wrap iframe { height: 420px; }
+    }
     .popup-actions { display:flex; gap:8px; margin-top:8px; }
     .popup-btn { padding:5px 12px; border-radius:8px; font-size:0.78rem; font-weight:600; text-decoration:none; display:inline-block; }
     .popup-call { background:#023e8a; color:#fff; }
@@ -1739,27 +1753,21 @@
   <div class="section-inner">
     <div class="section-tag">📍 লাইভ ম্যাপ</div>
     <h2 class="section-title">কক্সবাজারের <em>সব কিছু</em> ম্যাপে</h2>
-    <p class="section-sub">হোটেল, রেস্টুরেন্ট, দর্শনীয় স্থান — সব এক ম্যাপে। পিন-এ ক্লিক করে বিস্তারিত দেখুন, zoom করে accurate location জানুন।</p>
-    <div class="map-filter-bar">
-      <button class="map-filter-btn active" onclick="filterMap('all',this)" data-i18n="map_all">📍 সব</button>
-      <button class="map-filter-btn" onclick="filterMap('hotels',this)" data-i18n="map_hotels">🏨 হোটেল</button>
-      <button class="map-filter-btn" onclick="filterMap('luxury',this)">⭐ লাক্সারি</button>
-      <button class="map-filter-btn" onclick="filterMap('mid',this)">🏨 মধ্যম</button>
-      <button class="map-filter-btn" onclick="filterMap('budget',this)">🏕️ বাজেট</button>
-      <button class="map-filter-btn" onclick="filterMap('restaurant',this)" data-i18n="map_restaurants">🍴 রেস্টুরেন্ট</button>
-      <button class="map-filter-btn" onclick="filterMap('place',this)" data-i18n="map_places">🗺️ দর্শনীয় স্থান</button>
-    </div>
-    <div id="hotelMap"></div>
-    <div class="map-legend">
-      <div class="legend-item"><div class="legend-dot legend-luxury"></div> লাক্সারি</div>
-      <div class="legend-item"><div class="legend-dot legend-mid"></div> মধ্যম</div>
-      <div class="legend-item"><div class="legend-dot legend-budget"></div> বাজেট</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#9b59b6"></div> রেস্টুরেন্ট</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#f1c40f"></div> দর্শনীয় স্থান</div>
-      <div class="legend-item"><div class="legend-dot legend-admin"></div> অ্যাডমিন যোগ</div>
+    <p class="section-sub">হোটেল, রেস্টুরেন্ট, দর্শনীয় স্থান — সব এক ম্যাপে। পিন-এ ক্লিক করে বিস্তারিত দেখুন, zoom করে সঠিক location জানুন।</p>
+    <div class="gmap-wrap">
+      <iframe
+        src="https://www.google.com/maps/d/u/0/embed?mid=1JC_rep92Gkpsb0hvEQIq_roLRLj5CAk&ehbc=2E312F"
+        title="Cox Local Guide ম্যাপ"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </div>
     <div style="margin-top:14px;padding:14px 18px;background:rgba(0,119,182,0.06);border-left:4px solid var(--ocean);border-radius:10px;font-size:0.88rem;color:var(--text)">
-      💡 <b>টিপস:</b> Mouse স্ক্রল বা mobile এ pinch করে zoom করুন। প্রতিটা pin এ ক্লিক করলে বিস্তারিত popup আসবে।
+      💡 <b>টিপস:</b> বাম দিকের 📋 আইকনে ক্লিক করে হোটেল/রেস্টুরেন্ট/স্থান আলাদা করে দেখতে পারেন। প্রতিটা পিন-এ ক্লিক করলে নাম, লোকেশন ও বিস্তারিত আসবে। Mobile এ pinch করে zoom করুন।
+    </div>
+    <div style="margin-top:12px;text-align:center">
+      <a href="https://www.google.com/maps/d/u/0/viewer?mid=1JC_rep92Gkpsb0hvEQIq_roLRLj5CAk" target="_blank" rel="noopener" class="gmap-fulllink">🗺️ বড় ম্যাপে খুলুন (Google Maps)</a>
     </div>
   </div>
 </section>
@@ -2378,13 +2386,13 @@
 ============================================================ */
 
 const DEFAULT_HOTELS = [
-  {id:"h01",name:"Ramada by Wyndham Cox's Bazar",type:"luxury",addr:"মেরিন ড্রাইভ রোড, কলাতলী, কক্সবাজার",phone:"01896100012",phone_display:"01896-100012",off:"৳২০,০০০+",peak:"৳২৫,০০০+",website:"",facebook:"",maps:"https://maps.app.goo.gl/Br4UBPj1dsMyDarx6",img:"https://vromonguide.com/wp-content/uploads/coxsbazar-hotel-resort-770x420.jpg",icon:"🏨",amenities:["AC", "WiFi", "পুল", "স্পা", "রেস্টুরেন্ট", "জিম", "বিচ ভিউ"]},
-  {id:"h02",name:"Sayeman Beach Resort",type:"luxury",addr:"মেরিন ড্রাইভ রোড, কলাতলী, কক্সবাজার",phone:"09610777888",phone_display:"09610-777888",off:"৳১৩,৫০০+",peak:"৳৫০,০০০ পর্যন্ত",website:"",facebook:"",maps:"https://maps.app.goo.gl/M3NLoZGZSWjwppnN7",img:"https://vromonguide.com/wp-content/uploads/coxbazar-sea-beach-770x420.jpg",icon:"🌅",amenities:["AC", "WiFi", "ইনফিনিটি পুল", "স্পা", "জিম", "সী ভিউ"]},
-  {id:"h03",name:"Sea Pearl Beach Resort & Spa",type:"luxury",addr:"জালিয়াপালং, ইনানী, উখিয়া, কক্সবাজার",phone:"01844016120",phone_display:"01844-016120",off:"৳৪,৯৯৯+",peak:"৳৫৬,৮৫০ পর্যন্ত",website:"",facebook:"",maps:"https://maps.app.goo.gl/hdLBuf7wdGWj31B38",img:"https://vromonguide.com/wp-content/uploads/Royal-Tulip-Sea-Pearl-Beach-Resort-And-Spa-370x230.jpg",icon:"🌊",amenities:["AC", "WiFi", "পুল", "স্পা", "রেস্টুরেন্ট", "ইনানী বিচ ভিউ"]},
-  {id:"h04",name:"ওশান প্যারাডাইস হোটেল",type:"luxury",addr:"২৮-২৯, হোটেল-মোটেল জোন, কলাতলী, কক্সবাজার",phone:"09619675675",phone_display:"09619-675675",off:"৳১২,০০০+",peak:"৳৯০,০০০ পর্যন্ত",website:"",facebook:"",maps:"https://maps.app.goo.gl/GHf6efUMP7rq7Qvm6",img:"https://vromonguide.com/wp-content/uploads/coxsbazar-hotel-resort-770x420.jpg",icon:"🏖️",amenities:["AC", "WiFi", "২টি পুল", "রুফটপ রেস্টুরেন্ট", "স্পা", "৫ স্টার"]},
-  {id:"h05",name:"সী গাল হোটেল",type:"luxury",addr:"প্লট ৬-৮, হোটেল-মোটেল জোন, কক্সবাজার সী বিচ",phone:"01766666530",phone_display:"01766-666530",off:"৳৯,৫০০+",peak:"৳৬৩,০০০ পর্যন্ত",website:"",facebook:"",maps:"https://maps.app.goo.gl/LFtGq5Wq16zs59fGA",img:"https://vromonguide.com/wp-content/uploads/coxbazar-sea-beach-770x420.jpg",icon:"🌊",amenities:["AC", "WiFi", "পুল", "রেস্টুরেন্ট", "সী ভিউ"]},
-  {id:"h06",name:"হোটেল দ্য কক্স টুডে",type:"luxury",addr:"প্লট-৭, রোড-২, হোটেল-মোটেল জোন, কক্সবাজার",phone:"01755598449",phone_display:"01755-598449",off:"৳১০,০০০+",peak:"৳৮০,০০০ পর্যন্ত",website:"",facebook:"",maps:"https://maps.app.goo.gl/9dEVbRyiBi68Qap19",img:"https://vromonguide.com/wp-content/uploads/coxsbazar-hotel-resort-770x420.jpg",icon:"🏖️",amenities:["AC", "WiFi", "পুল", "রেস্টুরেন্ট"]},
-  {id:"h07",name:"মারমেইড বিচ রিসোর্ট",type:"luxury",addr:"মেরিন ড্রাইভ রোড, পেচারদ্বীপ, কক্সবাজার",phone:"01841416469",phone_display:"01841-416469",off:"৳২০,০০০+",peak:"৳৫৭,০০০ পর্যন্ত",website:"",facebook:"",maps:"https://maps.app.goo.gl/MBQ26GefGJkCuTdn8",img:"https://vromonguide.com/wp-content/uploads/mermaid-beach-resort-coxsbazar-370x230.jpg",icon:"🧜",amenities:["কটেজ", "সমুদ্র সৈকত", "পাহাড় ভিউ", "রেস্টুরেন্ট", "অ্যাডভেঞ্চার"]},
+  {id:"h01",name:"Ramada by Wyndham Cox's Bazar",type:"luxury",addr:"মেরিন ড্রাইভ রোড, কলাতলী, কক্সবাজার",phone:"01896100012",phone_display:"01896-100012",off:"৳২০,০০০+",peak:"৳২৫,০০০+",website:"https://www.ramadacoxsbazarkolatoli.com/",facebook:"https://www.facebook.com/RamadaCoxbazar/",maps:"https://maps.app.goo.gl/Br4UBPj1dsMyDarx6",img:"https://vromonguide.com/wp-content/uploads/coxsbazar-hotel-resort-770x420.jpg",icon:"🏨",amenities:["AC", "WiFi", "পুল", "স্পা", "রেস্টুরেন্ট", "জিম", "বিচ ভিউ"]},
+  {id:"h02",name:"Sayeman Beach Resort",type:"luxury",addr:"মেরিন ড্রাইভ রোড, কলাতলী, কক্সবাজার",phone:"01401777888",phone_display:"01401-777888",off:"৳১৩,৫০০+",peak:"৳৫০,০০০ পর্যন্ত",website:"https://sayemanresort.com/",facebook:"",maps:"https://maps.app.goo.gl/M3NLoZGZSWjwppnN7",img:"https://vromonguide.com/wp-content/uploads/coxbazar-sea-beach-770x420.jpg",icon:"🌅",amenities:["AC", "WiFi", "ইনফিনিটি পুল", "স্পা", "জিম", "সী ভিউ"]},
+  {id:"h03",name:"Sea Pearl Beach Resort & Spa",type:"luxury",addr:"জালিয়াপালং, ইনানী, উখিয়া, কক্সবাজার",phone:"01844016120",phone_display:"01844-016120",off:"৳৪,৯৯৯+",peak:"৳৫৬,৮৫০ পর্যন্ত",website:"https://www.seapearl.com.bd/",facebook:"https://www.facebook.com/TulipResort/",maps:"https://maps.app.goo.gl/hdLBuf7wdGWj31B38",img:"https://vromonguide.com/wp-content/uploads/Royal-Tulip-Sea-Pearl-Beach-Resort-And-Spa-370x230.jpg",icon:"🌊",amenities:["AC", "WiFi", "পুল", "স্পা", "রেস্টুরেন্ট", "ইনানী বিচ ভিউ"]},
+  {id:"h04",name:"ওশান প্যারাডাইস হোটেল",type:"luxury",addr:"২৮-২৯, হোটেল-মোটেল জোন, কলাতলী, কক্সবাজার",phone:"09619675675",phone_display:"09619-675675",off:"৳১২,০০০+",peak:"৳৯০,০০০ পর্যন্ত",website:"http://www.oceanparadisehotel.com/",facebook:"https://www.facebook.com/oceanparadisehotel/",maps:"https://maps.app.goo.gl/GHf6efUMP7rq7Qvm6",img:"https://vromonguide.com/wp-content/uploads/coxsbazar-hotel-resort-770x420.jpg",icon:"🏖️",amenities:["AC", "WiFi", "২টি পুল", "রুফটপ রেস্টুরেন্ট", "স্পা", "৫ স্টার"]},
+  {id:"h05",name:"সী গাল হোটেল",type:"luxury",addr:"প্লট ৬-৮, হোটেল-মোটেল জোন, কক্সবাজার সী বিচ",phone:"01766666530",phone_display:"01766-666530",off:"৳৯,৫০০+",peak:"৳৬৩,০০০ পর্যন্ত",website:"https://seagullhotelbd.com/",facebook:"https://www.facebook.com/seagullhotelcoxsbazar.bd/",maps:"https://maps.app.goo.gl/LFtGq5Wq16zs59fGA",img:"https://vromonguide.com/wp-content/uploads/coxbazar-sea-beach-770x420.jpg",icon:"🌊",amenities:["AC", "WiFi", "পুল", "রেস্টুরেন্ট", "সী ভিউ"]},
+  {id:"h06",name:"হোটেল দ্য কক্স টুডে",type:"luxury",addr:"প্লট-৭, রোড-২, হোটেল-মোটেল জোন, কক্সবাজার",phone:"01755598449",phone_display:"01755-598449",off:"৳১০,০০০+",peak:"৳৮০,০০০ পর্যন্ত",website:"https://hotelthecoxtoday.com/",facebook:"https://www.facebook.com/thecoxtoday/",maps:"https://maps.app.goo.gl/9dEVbRyiBi68Qap19",img:"https://vromonguide.com/wp-content/uploads/coxsbazar-hotel-resort-770x420.jpg",icon:"🏖️",amenities:["AC", "WiFi", "পুল", "রেস্টুরেন্ট"]},
+  {id:"h07",name:"মারমেইড বিচ রিসোর্ট",type:"luxury",addr:"মেরিন ড্রাইভ রোড, পেচারদ্বীপ, কক্সবাজার",phone:"01841416469",phone_display:"01841-416469",off:"৳২০,০০০+",peak:"৳৫৭,০০০ পর্যন্ত",website:"https://mermaidbeachresort.net/",facebook:"https://www.facebook.com/MermaidBeachResort/",maps:"https://maps.app.goo.gl/MBQ26GefGJkCuTdn8",img:"https://vromonguide.com/wp-content/uploads/mermaid-beach-resort-coxsbazar-370x230.jpg",icon:"🧜",amenities:["কটেজ", "সমুদ্র সৈকত", "পাহাড় ভিউ", "রেস্টুরেন্ট", "অ্যাডভেঞ্চার"]},
   {id:"h08",name:"ইনানী রয়েল রিসোর্ট",type:"budget",addr:"মেরিন ড্রাইভ রোড, ইনানী, উখিয়া, কক্সবাজার",phone:"01952227741",phone_display:"01952-227741",off:"৳৪,৭০০+",peak:"৳৫,৫০০ পর্যন্ত",website:"",facebook:"",maps:"https://maps.app.goo.gl/F5vCUQzWxWpnBJCaA",img:"https://vromonguide.com/wp-content/uploads/Inani-Royal-Resort-Coxs-Bazar-1-370x230.jpg",icon:"🏝️",amenities:["AC", "WiFi", "রেস্টুরেন্ট", "ইনানী বিচ পাশে"]},
   {id:"h09",name:"হোটেল কলোল (J&Z Group)",type:"mid",addr:"লাবণী পয়েন্ট, কক্সবাজার ৪৭০০",phone:"01886777711",phone_display:"01886-777711",off:"৳৩,০০০+",peak:"৳১১,০০০ পর্যন্ত",website:"",facebook:"",maps:"https://maps.app.goo.gl/YPorbwNcg5caCUkE7",img:"https://vromonguide.com/wp-content/uploads/coxbazar-sea-beach-770x420.jpg",icon:"🏩",amenities:["AC", "WiFi", "রেস্টুরেন্ট", "বিচ অ্যাক্সেস"]},
   {id:"h10",name:"হোটেল সী ক্রাউন",type:"luxury",addr:"মেরিন ড্রাইভ, কলাতলী নিউ বিচ, কক্সবাজার",phone:"01817089420",phone_display:"01817-089420",off:"৳৫,০০০+",peak:"৳৫০,০০০ পর্যন্ত",website:"",facebook:"",maps:"https://maps.app.goo.gl/mDLoDDaJW5E29Ezi9",img:"https://vromonguide.com/wp-content/uploads/coxsbazar-hotel-resort-770x420.jpg",icon:"👑",amenities:["AC", "WiFi", "রেস্টুরেন্ট", "সী ভিউ"]},
