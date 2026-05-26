@@ -2239,17 +2239,35 @@
 
       <!-- ============ ROUTES TAB ============ -->
       <div id="adminTab-routes" class="admin-tab-content">
+
+        <!-- PART 1: Locations manager -->
         <div class="admin-add-form">
-          <h4>➕ নতুন রুট গাইড যোগ করুন</h4>
-          <p style="font-size:0.85rem;color:var(--muted);margin-bottom:14px">রুট গাইড সেকশনের ড্রপডাউন থেকে দেখানো হবে। একই রুটে একাধিক যানবাহন যোগ করতে কমা দিয়ে আলাদা লিখুন।</p>
+          <h4>📍 জায়গা যোগ করুন (ড্রপডাউনে দেখাবে)</h4>
+          <p style="font-size:0.85rem;color:var(--muted);margin-bottom:14px">নতুন জায়গা যোগ করলে রুট গাইডের "কোথা থেকে / কোথায়" ড্রপডাউনে দেখাবে। যেমন: সুগন্ধা বিচ, ডলফিন মোড় ইত্যাদি।</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+            <div class="admin-form-group" style="flex:1;min-width:200px"><label class="admin-form-label">জায়গার নাম (বাংলা) *</label><input class="admin-input" id="loc_label" placeholder="যেমন: সুগন্ধা বিচ" style="margin-bottom:0"></div>
+            <button class="admin-btn-primary" onclick="addLocation()" style="width:auto;padding:12px 28px">➕ জায়গা যোগ</button>
+          </div>
+          <div class="admin-err" id="locErr"></div>
+          <div id="adminLocationsList" style="margin-top:16px"></div>
+        </div>
+
+        <!-- PART 2: Route fare manager -->
+        <div class="admin-add-form">
+          <h4>➕ নতুন রুট ভাড়া যোগ করুন</h4>
+          <p style="font-size:0.85rem;color:var(--muted);margin-bottom:14px">কোথা থেকে কোথায় — জায়গা সিলেক্ট করে ভাড়া যোগ করুন। একই রুটে একাধিক যানবাহন আলাদা করে যোগ করতে পারেন।</p>
           <div class="admin-form-grid">
-            <div class="admin-form-group"><label class="admin-form-label">শুরু (key) *</label><input class="admin-input" id="rt_from" placeholder="laboni / kolatoli / terminal" style="margin-bottom:0"></div>
-            <div class="admin-form-group"><label class="admin-form-label">শেষ (key) *</label><input class="admin-input" id="rt_to" placeholder="himchari / inani / teknaf" style="margin-bottom:0"></div>
+            <div class="admin-form-group"><label class="admin-form-label">কোথা থেকে *</label>
+              <select class="admin-form-select" id="rt_from" style="margin-bottom:0"></select>
+            </div>
+            <div class="admin-form-group"><label class="admin-form-label">কোথায় *</label>
+              <select class="admin-form-select" id="rt_to" style="margin-bottom:0"></select>
+            </div>
             <div class="admin-form-group" style="grid-column:1/-1"><label class="admin-form-label">যানবাহন *</label><input class="admin-input" id="rt_v" placeholder="সিএনজি" style="margin-bottom:0"></div>
             <div class="admin-form-group"><label class="admin-form-label">লোকাল ভাড়া *</label><input class="admin-input" id="rt_local" placeholder="৳৭০-৮০" style="margin-bottom:0"></div>
             <div class="admin-form-group"><label class="admin-form-label">ট্যুরিস্ট ভাড়া *</label><input class="admin-input" id="rt_tourist" placeholder="৳১৮০-২৫০" style="margin-bottom:0"></div>
           </div>
-          <div style="margin-top:18px"><button class="admin-btn-primary" onclick="addRoute()" style="width:auto;padding:12px 32px">➕ যোগ করুন</button></div>
+          <div style="margin-top:18px"><button class="admin-btn-primary" onclick="addRoute()" style="width:auto;padding:12px 32px">➕ রুট যোগ করুন</button></div>
           <div class="admin-err" id="rtErr"></div>
         </div>
         <div class="admin-table-wrap">
@@ -2574,6 +2592,58 @@ const routes = {
   'terminal-himchari': [{v:'সিএনজি', local:'৳৮০-১০০', tourist:'৳২০০-২৮০'},{v:'বাস+সিএনজি', local:'৳৫০-৭০', tourist:'৳১২০-১৫০'}],
   'terminal-kolatoli': [{v:'রিকশা', local:'৳৪০-৬০', tourist:'৳১০০-১৫০'},{v:'সিএনজি', local:'৳৩০-৫০', tourist:'৳৮০-১২০'}],
 };
+
+// ===== ROUTE LOCATIONS (dynamic dropdowns) =====
+// Default locations — admin can add more from the panel
+const DEFAULT_LOCATIONS = [
+  {key:'laboni',      label:'৬নং ঘাট / লাবণী বিচ'},
+  {key:'sugandha',    label:'সুগন্ধা বিচ'},
+  {key:'kolatoli',    label:'কলাতলী মোড়'},
+  {key:'terminal',    label:'বাস টার্মিনাল'},
+  {key:'himchari',    label:'হিমছড়ি'},
+  {key:'inani',       label:'ইনানী বিচ'},
+  {key:'teknaf',      label:'টেকনাফ'},
+  {key:'maheshkhali', label:'মহেশখালী ঘাট'},
+  {key:'sajek',       label:'চট্টগ্রাম (বাস)'},
+  {key:'ramu',        label:'রামু'}
+];
+
+// Returns merged list of {key,label} (defaults + admin-added)
+function getMergedLocations(){
+  const map = {};
+  DEFAULT_LOCATIONS.forEach(l => { map[l.key] = l.label; });
+  if(typeof window.getCustomLocations === 'function'){
+    (window.getCustomLocations() || []).forEach(l => {
+      if(l && l.key) map[l.key] = l.label || l.key;
+    });
+  }
+  return Object.keys(map).map(k => ({key:k, label:map[k]}));
+}
+
+// Get label for a location key (falls back to the key itself)
+function locLabel(key){
+  const found = getMergedLocations().find(l => l.key === key);
+  return found ? found.label : key;
+}
+
+// Fill the public From/To dropdowns from the merged locations
+function populateRouteDropdowns(){
+  const fromSel = document.getElementById('from');
+  const toSel = document.getElementById('to');
+  if(!fromSel || !toSel) return;
+  const locs = getMergedLocations();
+  const prevFrom = fromSel.value, prevTo = toSel.value;
+  const optsHtml = '<option value="">-- বেছে নিন --</option>' +
+    locs.map(l => `<option value="${l.key}">${l.label}</option>`).join('');
+  fromSel.innerHTML = optsHtml;
+  toSel.innerHTML = optsHtml;
+  // Restore previous selection if still present
+  if(prevFrom) fromSel.value = prevFrom;
+  if(prevTo) toSel.value = prevTo;
+}
+
+// Populate on load (uses defaults until Firestore custom locations arrive)
+document.addEventListener('DOMContentLoaded', populateRouteDropdowns);
 
 function calcRoute() {
   const f = document.getElementById('from').value;
@@ -3140,7 +3210,37 @@ function addSeafood(){
 }
 
 // ===== ROUTES =====
+// Fill the admin route-form From/To dropdowns from merged locations
+function refreshRouteFormDropdowns(){
+  const fromSel = document.getElementById('rt_from');
+  const toSel = document.getElementById('rt_to');
+  if(!fromSel || !toSel) return;
+  const locs = (typeof getMergedLocations === 'function') ? getMergedLocations() : [];
+  const opts = '<option value="">-- বেছে নিন --</option>' +
+    locs.map(l => `<option value="${l.key}">${l.label}</option>`).join('');
+  const pf = fromSel.value, pt = toSel.value;
+  fromSel.innerHTML = opts; toSel.innerHTML = opts;
+  if(pf) fromSel.value = pf;
+  if(pt) toSel.value = pt;
+}
+
+// Render the admin locations list (with delete for custom ones)
+function renderAdminLocations(){
+  const c = document.getElementById('adminLocationsList');
+  if(!c) return;
+  const locs = (typeof getMergedLocations === 'function') ? getMergedLocations() : [];
+  const defaultKeys = new Set(DEFAULT_LOCATIONS.map(l => l.key));
+  c.innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:8px">' + locs.map(l => {
+    const isDefault = defaultKeys.has(l.key);
+    return `<span style="display:inline-flex;align-items:center;gap:6px;background:${isDefault?'#eef2f6':'#fff3e0'};border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:0.82rem">
+      ${l.label}${isDefault ? '' : ` <button onclick="deleteLocation('${l.key}')" style="background:none;border:none;color:#c0392b;cursor:pointer;font-size:0.95rem;line-height:1;padding:0">✕</button>`}
+    </span>`;
+  }).join('') + '</div>';
+}
+
 function renderAdminRoutes(){
+  refreshRouteFormDropdowns();
+  renderAdminLocations();
   const routes = getRoutes();
   const c = document.getElementById('adminRoutesTable');
   if(!c) return;
@@ -3154,8 +3254,9 @@ function renderAdminRoutes(){
       rows.push({key, from, to, idx, v:r.v, local:r.local, tourist:r.tourist});
     });
   });
+  const lbl = (typeof locLabel === 'function') ? locLabel : (k=>k);
   c.innerHTML = `<table class="admin-table"><thead><tr><th>রুট</th><th>যানবাহন</th><th>লোকাল</th><th>ট্যুরিস্ট</th><th>অ্যাকশন</th></tr></thead><tbody>${rows.map(r=>`
-    <tr><td><b>${r.from} → ${r.to}</b></td><td>${r.v}</td><td>${r.local}</td><td>${r.tourist}</td>
+    <tr><td><b>${lbl(r.from)} → ${lbl(r.to)}</b></td><td>${r.v}</td><td>${r.local}</td><td>${r.tourist}</td>
     <td><button class="admin-edit-btn" onclick="openEditRoute('${r.key}',${r.idx})">✏️</button><button class="admin-del-btn" onclick="deleteRouteVehicle('${r.key}',${r.idx})">🗑️</button></td></tr>`).join('')}</tbody></table>`;
 }
 function addRoute(){
@@ -4625,7 +4726,8 @@ function renderWeather(data){
     seafood:   { overrides: {}, added: [], deleted: [] },
     tips:      { overrides: {}, added: [], deleted: [] },
     festivals: { overrides: {}, added: [], deleted: [] },
-    routes:    {}
+    routes:    {},
+    locations: []
   };
   const loaded = { count: 0, total: KINDS.length + 1 }; // +1 for routes
   let initialRenderDone = false;
@@ -4683,6 +4785,13 @@ function renderWeather(data){
       markLoaded();
       rerender('routes');
     }, err => { console.error('Snapshot error routes', err); markLoaded(); });
+    // Locations (independent — does not gate initial render)
+    db.collection('admin_data').doc('locations').onSnapshot(doc => {
+      cache.locations = (doc.data() || {}).custom || [];
+      if(typeof populateRouteDropdowns === 'function') populateRouteDropdowns();
+      if(typeof refreshRouteFormDropdowns === 'function') refreshRouteFormDropdowns();
+      if(typeof renderAdminRoutes === 'function' && isAdminVisible()) renderAdminRoutes();
+    }, err => console.warn('Snapshot error locations', err));
   }
 
   function markLoaded(){
@@ -4812,6 +4921,69 @@ function renderWeather(data){
   window.saveRoutes = function(custom){
     cache.routes = custom;
     persist('routes');
+  };
+
+  // ----- Locations (for route dropdowns) -----
+  window.getCustomLocations = function(){
+    return cache.locations || [];
+  };
+  async function persistLocations(){
+    try {
+      await db.collection('admin_data').doc('locations').set({ custom: cache.locations }, {merge:false});
+      flashSyncStatus('✅ সেভ হয়েছে');
+    } catch(e){
+      console.error('Locations persist error', e);
+      flashSyncStatus('❌ সেভ ব্যর্থ: ' + (e.code||''), true);
+    }
+  }
+  // Generate a safe ascii key from a label (or fallback to loc + timestamp)
+  function makeLocationKey(label){
+    let base = (label || '').trim().toLowerCase()
+      .replace(/[^a-z0-9]+/g, '');   // keep only ascii letters/numbers
+    if(!base) base = 'loc' + Date.now();
+    // Ensure unique against defaults + custom
+    const existing = new Set([
+      ...DEFAULT_LOCATIONS.map(l => l.key),
+      ...(cache.locations || []).map(l => l.key)
+    ]);
+    let key = base, n = 2;
+    while(existing.has(key)){ key = base + n; n++; }
+    return key;
+  }
+  window.addLocation = function(){
+    const errEl = document.getElementById('locErr');
+    if(errEl){ errEl.style.color = 'var(--coral-dark)'; }
+    const labelEl = document.getElementById('loc_label');
+    const label = labelEl ? labelEl.value.trim() : '';
+    if(!label){ if(errEl) errEl.textContent = '❌ জায়গার নাম লিখুন'; return; }
+    // Prevent duplicate label
+    const allLocs = (typeof getMergedLocations === 'function') ? getMergedLocations() : [];
+    if(allLocs.some(l => l.label === label)){
+      if(errEl) errEl.textContent = '❌ এই নামে জায়গা আগে থেকেই আছে';
+      return;
+    }
+    const key = makeLocationKey(label);
+    cache.locations = (cache.locations || []).concat([{key, label}]);
+    persistLocations();
+    if(labelEl) labelEl.value = '';
+    if(errEl){ errEl.style.color = '#2a9d8f'; errEl.textContent = '✅ জায়গা যোগ হয়েছে!';
+      setTimeout(()=>{ errEl.textContent=''; errEl.style.color='var(--coral-dark)'; }, 3000); }
+    if(typeof populateRouteDropdowns === 'function') populateRouteDropdowns();
+    if(typeof refreshRouteFormDropdowns === 'function') refreshRouteFormDropdowns();
+    if(typeof renderAdminRoutes === 'function') renderAdminRoutes();
+  };
+  window.deleteLocation = function(key){
+    // Cannot delete default locations
+    if(DEFAULT_LOCATIONS.some(l => l.key === key)){
+      alert('এটি ডিফল্ট জায়গা — মুছে ফেলা যাবে না।');
+      return;
+    }
+    if(!confirm('এই জায়গা মুছে দিতে চান? (এই জায়গার রুট থাকলে সেগুলো আলাদাভাবে মুছতে হবে)')) return;
+    cache.locations = (cache.locations || []).filter(l => l.key !== key);
+    persistLocations();
+    if(typeof populateRouteDropdowns === 'function') populateRouteDropdowns();
+    if(typeof refreshRouteFormDropdowns === 'function') refreshRouteFormDropdowns();
+    if(typeof renderAdminRoutes === 'function') renderAdminRoutes();
   };
 
   // ----- Override addRoute, deleteRouteVehicle (which used localStorage directly) -----
