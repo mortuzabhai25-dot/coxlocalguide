@@ -1274,16 +1274,21 @@
     #map-section { background: var(--white); }
     .gmap-wrap {
       width: 100%;
+      height: 520px;
       border-radius: 18px;
       overflow: hidden;
       box-shadow: var(--shadow-lg);
       border: 2px solid var(--border);
       background: #e8eef2;
       line-height: 0;
+      position: relative;
     }
+    /* iframe is taller than wrap + shifted up to crop the top header
+       bar (which shows the map owner's name & photo) */
     .gmap-wrap iframe {
       width: 100%;
-      height: 520px;
+      height: 580px;
+      margin-top: -60px;
       border: 0;
       display: block;
     }
@@ -1300,7 +1305,8 @@
     }
     .gmap-fulllink:hover { background: var(--ocean); color: #fff; }
     @media (max-width: 600px) {
-      .gmap-wrap iframe { height: 420px; }
+      .gmap-wrap { height: 420px; }
+      .gmap-wrap iframe { height: 480px; margin-top: -60px; }
     }
     .popup-actions { display:flex; gap:8px; margin-top:8px; }
     .popup-btn { padding:5px 12px; border-radius:8px; font-size:0.78rem; font-weight:600; text-decoration:none; display:inline-block; }
@@ -1764,7 +1770,7 @@
       </iframe>
     </div>
     <div style="margin-top:14px;padding:14px 18px;background:rgba(0,119,182,0.06);border-left:4px solid var(--ocean);border-radius:10px;font-size:0.88rem;color:var(--text)">
-      💡 <b>টিপস:</b> বাম দিকের 📋 আইকনে ক্লিক করে হোটেল/রেস্টুরেন্ট/স্থান আলাদা করে দেখতে পারেন। প্রতিটা পিন-এ ক্লিক করলে নাম, লোকেশন ও বিস্তারিত আসবে। Mobile এ pinch করে zoom করুন।
+      💡 <b>টিপস:</b> প্রতিটা পিন-এ ক্লিক করলে নাম, লোকেশন ও বিস্তারিত আসবে। Mobile এ pinch করে zoom করুন। সব হোটেল/রেস্টুরেন্ট/স্থান একসাথে দেখতে নিচের "বড় ম্যাপে খুলুন" বাটনে ক্লিক করুন।
     </div>
     <div style="margin-top:12px;text-align:center">
       <a href="https://www.google.com/maps/d/u/0/viewer?mid=1JC_rep92Gkpsb0hvEQIq_roLRLj5CAk" target="_blank" rel="noopener" class="gmap-fulllink">🗺️ বড় ম্যাপে খুলুন (Google Maps)</a>
