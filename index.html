@@ -2608,10 +2608,12 @@ const DEFAULT_LOCATIONS = [
   {key:'ramu',        label:'রামু'}
 ];
 
-// Returns merged list of {key,label} (defaults + admin-added)
+// Returns merged list of {key,label} (defaults + admin-added, minus hidden defaults)
 function getMergedLocations(){
+  const hidden = (typeof window.getHiddenLocations === 'function')
+    ? (window.getHiddenLocations() || []) : [];
   const map = {};
-  DEFAULT_LOCATIONS.forEach(l => { map[l.key] = l.label; });
+  DEFAULT_LOCATIONS.forEach(l => { if(!hidden.includes(l.key)) map[l.key] = l.label; });
   if(typeof window.getCustomLocations === 'function'){
     (window.getCustomLocations() || []).forEach(l => {
       if(l && l.key) map[l.key] = l.label || l.key;
@@ -2620,10 +2622,12 @@ function getMergedLocations(){
   return Object.keys(map).map(k => ({key:k, label:map[k]}));
 }
 
-// Get label for a location key (falls back to the key itself)
+// Get label for a location key (falls back to default label, then the key)
 function locLabel(key){
   const found = getMergedLocations().find(l => l.key === key);
-  return found ? found.label : key;
+  if(found) return found.label;
+  const def = DEFAULT_LOCATIONS.find(l => l.key === key);
+  return def ? def.label : key;
 }
 
 // Fill the public From/To dropdowns from the merged locations
@@ -3224,7 +3228,7 @@ function refreshRouteFormDropdowns(){
   if(pt) toSel.value = pt;
 }
 
-// Render the admin locations list (with delete for custom ones)
+// Render the admin locations list (with delete for ALL — default + custom)
 function renderAdminLocations(){
   const c = document.getElementById('adminLocationsList');
   if(!c) return;
@@ -3233,7 +3237,7 @@ function renderAdminLocations(){
   c.innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:8px">' + locs.map(l => {
     const isDefault = defaultKeys.has(l.key);
     return `<span style="display:inline-flex;align-items:center;gap:6px;background:${isDefault?'#eef2f6':'#fff3e0'};border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:0.82rem">
-      ${l.label}${isDefault ? '' : ` <button onclick="deleteLocation('${l.key}')" style="background:none;border:none;color:#c0392b;cursor:pointer;font-size:0.95rem;line-height:1;padding:0">✕</button>`}
+      ${l.label} <button onclick="deleteLocation('${l.key}')" style="background:none;border:none;color:#c0392b;cursor:pointer;font-size:0.95rem;line-height:1;padding:0" title="মুছুন">✕</button>
     </span>`;
   }).join('') + '</div>';
 }
@@ -4727,7 +4731,8 @@ function renderWeather(data){
     tips:      { overrides: {}, added: [], deleted: [] },
     festivals: { overrides: {}, added: [], deleted: [] },
     routes:    {},
-    locations: []
+    locations: [],
+    hiddenLocations: []
   };
   const loaded = { count: 0, total: KINDS.length + 1 }; // +1 for routes
   let initialRenderDone = false;
@@ -4787,7 +4792,9 @@ function renderWeather(data){
     }, err => { console.error('Snapshot error routes', err); markLoaded(); });
     // Locations (independent — does not gate initial render)
     db.collection('admin_data').doc('locations').onSnapshot(doc => {
-      cache.locations = (doc.data() || {}).custom || [];
+      const d = doc.data() || {};
+      cache.locations = d.custom || [];
+      cache.hiddenLocations = d.hidden || [];
       if(typeof populateRouteDropdowns === 'function') populateRouteDropdowns();
       if(typeof refreshRouteFormDropdowns === 'function') refreshRouteFormDropdowns();
       if(typeof renderAdminRoutes === 'function' && isAdminVisible()) renderAdminRoutes();
@@ -4927,9 +4934,15 @@ function renderWeather(data){
   window.getCustomLocations = function(){
     return cache.locations || [];
   };
+  window.getHiddenLocations = function(){
+    return cache.hiddenLocations || [];
+  };
   async function persistLocations(){
     try {
-      await db.collection('admin_data').doc('locations').set({ custom: cache.locations }, {merge:false});
+      await db.collection('admin_data').doc('locations').set({
+        custom: cache.locations,
+        hidden: cache.hiddenLocations
+      }, {merge:false});
       flashSyncStatus('✅ সেভ হয়েছে');
     } catch(e){
       console.error('Locations persist error', e);
@@ -4973,13 +4986,16 @@ function renderWeather(data){
     if(typeof renderAdminRoutes === 'function') renderAdminRoutes();
   };
   window.deleteLocation = function(key){
-    // Cannot delete default locations
-    if(DEFAULT_LOCATIONS.some(l => l.key === key)){
-      alert('এটি ডিফল্ট জায়গা — মুছে ফেলা যাবে না।');
-      return;
+    const isDefault = DEFAULT_LOCATIONS.some(l => l.key === key);
+    if(isDefault){
+      if(!confirm('এটি একটি ডিফল্ট জায়গা। মুছে দিলে ড্রপডাউন থেকে চলে যাবে। (পরে আবার "জায়গা যোগ" দিয়ে ফেরত আনতে পারবেন)\n\nমুছে দিতে চান?')) return;
+      if(!cache.hiddenLocations.includes(key)){
+        cache.hiddenLocations = cache.hiddenLocations.concat([key]);
+      }
+    } else {
+      if(!confirm('এই জায়গা মুছে দিতে চান? (এই জায়গার রুট থাকলে সেগুলো আলাদাভাবে মুছতে হবে)')) return;
+      cache.locations = (cache.locations || []).filter(l => l.key !== key);
     }
-    if(!confirm('এই জায়গা মুছে দিতে চান? (এই জায়গার রুট থাকলে সেগুলো আলাদাভাবে মুছতে হবে)')) return;
-    cache.locations = (cache.locations || []).filter(l => l.key !== key);
     persistLocations();
     if(typeof populateRouteDropdowns === 'function') populateRouteDropdowns();
     if(typeof refreshRouteFormDropdowns === 'function') refreshRouteFormDropdowns();
